@@ -1,6 +1,8 @@
 package se.lexicon.daniel.vending_machine.assignment4.controller;
 import se.lexicon.daniel.vending_machine.assignment4.data.User;
+import se.lexicon.daniel.vending_machine.assignment4.data.UserSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachine;
+import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachineSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.models.Candy;
 import se.lexicon.daniel.vending_machine.assignment4.models.Drink;
 import se.lexicon.daniel.vending_machine.assignment4.models.Food;
@@ -10,19 +12,21 @@ import se.lexicon.daniel.vending_machine.assignment4.utils.KeyboardInput;
 
 public class ConsoleMenuController {
 	private boolean running;
-	private VendingMachine vendingMachineInstance = new VendingMachine();
-	private User userInstance = new User();
+	private UserSignatures userSignaturesInstance;
+	private VendingMachineSignatures vendingMachineInstance;
 	private int userInputCashAmount;
 	private int userInputProductNumber;
 	private int userSwitchInput;
 	
 	public ConsoleMenuController() {
+		userSignaturesInstance = User.getUserInstance();
+		vendingMachineInstance = VendingMachine.getVendingMachineInstance();
+		running = true;
 		System.out.println("");
 		System.out.println("|------------------------------------|");
 		System.out.println("|    Vending Machine Assignment 4    |");
 		System.out.println("|------------------------------------|");
 		System.out.println("");
-		running = true;
 	}
 
 	public boolean isRunning() {
@@ -41,8 +45,8 @@ public class ConsoleMenuController {
 		boolean stopLoop = false;
 		while(!stopLoop) {
 			System.out.println("\n You stand in front of a vending machine \n" +
-					" \n [Vending Machine] " + vendingMachineInstance.getBalance() + " kr " +
-					" \n [Wallet] " + vendingMachineInstance.getBalance() + " kr " + "\n" +
+					" \n [Vending Machine] " + vendingMachineInstance.getCashAmount() + " kr " +
+					" \n [Wallet] " + userSignaturesInstance.getCashAmount() + " kr " + "\n" +
 					" \n [1] Examine the product in the machine. \n" +
 					" [2] Insert coin in to the machin. \n" +
 					" [3] Purchase a product. \n" +
@@ -58,7 +62,7 @@ public class ConsoleMenuController {
 				System.out.println("| Examine Products... |");
 				System.out.println("|---------------------|");
 				System.out.println("");
-				vendingMachineInstance.examineProduct();
+				// vendingMachineInstance.examineProduct();
 				break;
 			case 2:
 				System.out.println("");
@@ -66,8 +70,8 @@ public class ConsoleMenuController {
 				System.out.println("| Insert Coin... |");
 				System.out.println("|----------------|");
 				System.out.println("");
-				userInputCashAmount = KeyboardInput.getInt();
-				vendingMachineInstance.insertCash(userInputCashAmount);
+				// userInputCashAmount = KeyboardInput.getInt();
+				// vendingMachineInstance.insertCash(userInputCashAmount);
 				break; 
 			case 3:
 				System.out.println("");
@@ -75,9 +79,9 @@ public class ConsoleMenuController {
 				System.out.println("| Purchase Product... |");
 				System.out.println("|---------------------|");
 				System.out.println("");
-				userInputCashAmount = KeyboardInput.getInt();
-				userInputProductNumber = KeyboardInput.getInt();
-				vendingMachineInstance.purchaseProduct(userInputCashAmount, userInputProductNumber);
+				// userInputCashAmount = KeyboardInput.getInt();
+				// userInputProductNumber = KeyboardInput.getInt();
+				// vendingMachineInstance.purchaseProduct(userInputCashAmount, userInputProductNumber);
 				break;
 			case 4:
 				System.out.println("");

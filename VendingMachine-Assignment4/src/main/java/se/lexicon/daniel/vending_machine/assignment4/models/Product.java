@@ -1,37 +1,38 @@
 package se.lexicon.daniel.vending_machine.assignment4.models;
 
 public abstract class Product {
-	private int id;
-	private String name;
-	private int price;
+	private int productId;
+	private String productName;
+	private int productPrice;
 	
-	public Product(int id, String name, int price) {
+	public Product(int productId, String productName, int productPrice) {
 		super();
-		this.id = id;
-		this.name = name;
-		this.price = price;
+		this.productId = productId;
+		this.productName = productName;
+		this.productPrice = productPrice;
 	}
 	
-	public String getName() {
-		return name;
+	public String getProductName() {
+		return productName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
-	public int getPrice() {
-		return price;
+	public int getProductPrice() {
+		return productPrice;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
 	}
-	public int getId() {
-		return id;
+	public int getProductId() {
+		return productId;
 	}
 
 	
 	/** 
 	 * @return a string with information
 	 */
+	
 	public abstract String Examine();
 
 	/**
