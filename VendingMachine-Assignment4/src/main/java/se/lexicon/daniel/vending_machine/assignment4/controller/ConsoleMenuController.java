@@ -1,32 +1,39 @@
 package se.lexicon.daniel.vending_machine.assignment4.controller;
+
 import se.lexicon.daniel.vending_machine.assignment4.data.User;
 import se.lexicon.daniel.vending_machine.assignment4.data.UserSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachine;
 import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachineSignatures;
-import se.lexicon.daniel.vending_machine.assignment4.models.Candy;
+import se.lexicon.daniel.vending_machine.assignment4.models.ChewingGum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Drink;
 import se.lexicon.daniel.vending_machine.assignment4.models.Food;
-import se.lexicon.daniel.vending_machine.assignment4.models.Product;
+import se.lexicon.daniel.vending_machine.assignment4.service.VendingMachineService;
+import se.lexicon.daniel.vending_machine.assignment4.service.VendingMachineServiceSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.utils.KeyboardInput;
-
 
 public class ConsoleMenuController {
 	private boolean running;
-	private UserSignatures userSignaturesInstance;
+	private VendingMachineServiceSignatures VendingMachineServiceInstance;
+	private UserSignatures userInstance;
 	private VendingMachineSignatures vendingMachineInstance;
 	private int userInputCashAmount;
 	private int userInputProductNumber;
 	private int userSwitchInput;
 	
 	public ConsoleMenuController() {
-		userSignaturesInstance = User.getUserInstance();
-		vendingMachineInstance = VendingMachine.getVendingMachineInstance();
+		
+		VendingMachineServiceInstance = VendingMachineService.getVendingMachineService();
+		VendingMachineServiceInstance.UserDefaultLoadStart();
+		VendingMachineServiceInstance.VendingMachineDefaultLoadStart();
+		
 		running = true;
+		
 		System.out.println("");
 		System.out.println("|------------------------------------|");
 		System.out.println("|    Vending Machine Assignment 4    |");
 		System.out.println("|------------------------------------|");
 		System.out.println("");
+		
 	}
 
 	public boolean isRunning() {
@@ -46,7 +53,7 @@ public class ConsoleMenuController {
 		while(!stopLoop) {
 			System.out.println("\n You stand in front of a vending machine \n" +
 					" \n [Vending Machine] " + vendingMachineInstance.getCashAmount() + " kr " +
-					" \n [Wallet] " + userSignaturesInstance.getCashAmount() + " kr " + "\n" +
+					" \n [Wallet] " + userInstance.getCashAmount() + " kr " + "\n" +
 					" \n [1] Examine the product in the machine. \n" +
 					" [2] Insert coin in to the machin. \n" +
 					" [3] Purchase a product. \n" +
@@ -115,30 +122,5 @@ public class ConsoleMenuController {
 				System.out.println("");
 			}
 		}
-	}
-	
-	private void useProductController() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void examineInventoryController() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void purchaseProductController() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void insertCoinController() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void examineProductController() {
-		// TODO Auto-generated method stub
-		
 	}
 }

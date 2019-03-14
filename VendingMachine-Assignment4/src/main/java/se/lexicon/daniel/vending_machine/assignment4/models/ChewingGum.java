@@ -1,37 +1,50 @@
 package se.lexicon.daniel.vending_machine.assignment4.models;
 
-public class Food extends Product {
-	private String foodtype;
+public class ChewingGum extends Product {
+	private Integer amount;
 	private String taste;
-
+	
 	/**
 	 * @param productId is an Integer
 	 * @param productName is an String
 	 * @param productCode is an Integer
 	 * @param productPrice is an Integer
-	 * @param foodtype is an String
+	 * @param amount is an Integer
 	 * @param taste is an String
-	 * @param productPackaging is an String
-	 * @param productWeight is an Integer
+	 * @param packaging is an String
 	 */
-	
-	public Food(String productName, Integer productCode, Integer productPrice, String foodtype, String taste, String productPackaging, Integer productWeight) {
+
+	public ChewingGum(String productName, Integer productCode, Integer productPrice, String productPackaging, Integer productWeight, Integer amount, 
+			String taste, String packaging) {
 		super(productName, productCode, productPrice, productPackaging, productWeight);
-		this.foodtype = foodtype;
+		this.amount = amount;
 		this.taste = taste;
 	}
 
 	@Override
 	public String Examine() {
-		String productData = "Food: "+ super.getProductName() + " (" + foodtype + ") with "+ taste + " " + super.getProductWeight() + " g " + super.getProductPrice() + " kr ";
+		String productData = "Candy: " + super.getProductName() + " " + taste + " " + amount + " g in " + super.getProductPackaging() + " "
+				+ super.getProductPrice() + " kr ";
+
 		return productData;
 	}
 
 	@Override
 	public String Use() {
-		return "Eating " + super.getProductName() +" *chew chew*";
+		return "Eating " + super.getProductName() + " *nom nom*";
 	}
 	
+	
+	/**
+	 * @param productId is an Integer
+	 * @param productName is an String
+	 * @param productCode is an Integer
+	 * @param productPrice is an Integer
+	 * @param amount is an Integer
+	 * @param taste is an String
+	 * @param packaging is an String
+	 */
+
 	@Override
 	public String StringBuilder() {
 		StringBuilder sb = new StringBuilder();
@@ -49,18 +62,19 @@ public class Food extends Product {
 		sb.append(" [Price] = ");
 		sb.append(super.getProductPrice() + "\n");
 		
-		sb.append(" [Foodtype] = ");
-		sb.append(this.foodtype + "\n");
+		sb.append(" [Amount] = ");
+		sb.append(amount + "\n");
 		
 		sb.append(" [Taste] = ");
-		sb.append(this.taste + "\n");
+		sb.append(taste + "\n");
 		
 		sb.append(" [Packaging] = ");
 		sb.append(super.getProductPackaging() + "\n");
 		
-		sb.append(" [Weight] = ");
-		sb.append(super.getProductPackaging() + "\n");
+		sb.append(" [Packaging] = ");
+		sb.append(super.getProductWeight() + "\n");
 		
 		return sb.toString(); 
 	}
+
 }

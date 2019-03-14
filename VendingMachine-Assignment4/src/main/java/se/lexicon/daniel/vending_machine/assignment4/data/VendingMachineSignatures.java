@@ -1,16 +1,22 @@
 package se.lexicon.daniel.vending_machine.assignment4.data;
 import java.util.List;
+import java.util.Optional;
 
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 
 public interface VendingMachineSignatures {
-	public int getCashAmount();
-	public void setCashAmount(int userCash);
-	public void addCashAmount(int userCash);
+	
+	public Integer getCashAmount();
+	public void setCashAmount(Integer userCash);
+	public void addCashAmount(Integer userCash);
 	
 	public String getInventory();
-	public List<Product> addToInventory(Product product);
-	public Product findProductById(int productId);
+	
+	public void addToInventory(Product product);
 	public void removeProduct(Product productObject);
+	
+	public Optional<Product> findProductById(Integer productId);
+	public Optional<Product> findProductByCode(Integer code);
 	public List<Product> findAllProducts();
+	
 }
