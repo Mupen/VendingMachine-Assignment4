@@ -1,24 +1,24 @@
 package se.lexicon.daniel.vending_machine.assignment4.models;
 
 public class Drink extends Product {
-	private Integer volume;
+	private int volume;
 	private boolean carbonated;
 	private String taste;
 
 	/**
-	 * @param productId is an Integer sequencer
+	 * @param productId is an int sequencer
 	 * @param productName is an String
-	 * @param productCode is an Integer
-	 * @param productPrice is an Integer
-	 * @param volume is an Integer
+	 * @param productCode is an int
+	 * @param productPrice is an int
+	 * @param volume is an int
 	 * @param carbonated is an boolean
 	 * @param taste is an String
 	 * @param productPackaging is an String
-	 * @param productWeight is an Integer
+	 * @param productWeight is an int
 	 */
 	
-	public Drink(String productName, Integer productCode, Integer productPrice, Integer volume, 
-			boolean carbonated, String taste, String productPackaging, Integer productWeight) {
+	public Drink(String productName, int productCode, int productPrice, int volume, 
+			boolean carbonated, String taste, String productPackaging, int productWeight) {
 		super(productName, productCode, productPrice, productPackaging, productWeight);
 		this.volume = volume;
 		this.carbonated = carbonated;
@@ -41,11 +41,11 @@ public class Drink extends Product {
 	}
 	
 	/**
-	 * @param productId is an Integer
+	 * @param productId is an int
 	 * @param productName is an String
-	 * @param productCode is an Integer
-	 * @param productPrice is an Integer
-	 * @param volume is an Integer
+	 * @param productCode is an int
+	 * @param productPrice is an int
+	 * @param volume is an int
 	 * @param carbonated is an boolean
 	 * @param taste is an String
 	 * @param packaging is an String

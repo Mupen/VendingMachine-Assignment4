@@ -8,14 +8,14 @@ import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 public interface UserSignatures {
 	
 	public int getCashAmount();
-	public void setCashAmount(Integer userCash);
-	public void addCashAmount(Integer userCash);
+	public void setCashAmount(int userCash);
+	public void addCashAmount(int userCash);
 	
 	public void useProduct(Product product);
 	
 	public Product addToInventory(Product product);
 	
-	public Optional<Product> findProductById(Integer productId);
+	public Optional<Product> findProductById(int productId);
 	
 	public void removeProduct(Optional<Product> product);
 	

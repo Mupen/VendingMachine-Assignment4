@@ -1,21 +1,22 @@
 package se.lexicon.daniel.vending_machine.assignment4.models;
 
 public class ChewingGum extends Product {
-	private Integer amount;
+	private int amount;
 	private String taste;
 	
 	/**
-	 * @param productId is an Integer
+	 * @param productId is an int
 	 * @param productName is an String
-	 * @param productCode is an Integer
-	 * @param productPrice is an Integer
-	 * @param amount is an Integer
+	 * @param productCode is an int
+	 * @param productPrice is an int
+	 * @param amount is an int
 	 * @param taste is an String
-	 * @param packaging is an String
+	 * @param productPackaging is an String
+	 * @param productWeight is an int
 	 */
 
-	public ChewingGum(String productName, Integer productCode, Integer productPrice, String productPackaging, Integer productWeight, Integer amount, 
-			String taste, String packaging) {
+	public ChewingGum(String productName, int productCode, int productPrice, int amount, 
+			String taste, String productPackaging, int productWeight) {
 		super(productName, productCode, productPrice, productPackaging, productWeight);
 		this.amount = amount;
 		this.taste = taste;
@@ -36,11 +37,11 @@ public class ChewingGum extends Product {
 	
 	
 	/**
-	 * @param productId is an Integer
+	 * @param productId is an int
 	 * @param productName is an String
-	 * @param productCode is an Integer
-	 * @param productPrice is an Integer
-	 * @param amount is an Integer
+	 * @param productCode is an int
+	 * @param productPrice is an int
+	 * @param amount is an int
 	 * @param taste is an String
 	 * @param packaging is an String
 	 */

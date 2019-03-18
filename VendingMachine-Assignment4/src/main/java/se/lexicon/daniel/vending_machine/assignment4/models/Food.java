@@ -5,17 +5,17 @@ public class Food extends Product {
 	private String taste;
 
 	/**
-	 * @param productId is an Integer
+	 * @param productId is an int
 	 * @param productName is an String
-	 * @param productCode is an Integer
-	 * @param productPrice is an Integer
+	 * @param productCode is an int
+	 * @param productPrice is an int
 	 * @param foodtype is an String
 	 * @param taste is an String
 	 * @param productPackaging is an String
-	 * @param productWeight is an Integer
+	 * @param productWeight is an int
 	 */
 	
-	public Food(String productName, Integer productCode, Integer productPrice, String foodtype, String taste, String productPackaging, Integer productWeight) {
+	public Food(String productName, int productCode, int productPrice, String foodtype, String taste, String productPackaging, int productWeight) {
 		super(productName, productCode, productPrice, productPackaging, productWeight);
 		this.foodtype = foodtype;
 		this.taste = taste;

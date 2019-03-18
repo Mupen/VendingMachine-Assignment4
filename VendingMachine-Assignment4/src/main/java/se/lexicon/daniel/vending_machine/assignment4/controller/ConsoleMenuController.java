@@ -1,30 +1,18 @@
 package se.lexicon.daniel.vending_machine.assignment4.controller;
-
-import se.lexicon.daniel.vending_machine.assignment4.data.User;
-import se.lexicon.daniel.vending_machine.assignment4.data.UserSignatures;
-import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachine;
-import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachineSignatures;
-import se.lexicon.daniel.vending_machine.assignment4.models.ChewingGum;
-import se.lexicon.daniel.vending_machine.assignment4.models.Drink;
-import se.lexicon.daniel.vending_machine.assignment4.models.Food;
 import se.lexicon.daniel.vending_machine.assignment4.service.VendingMachineService;
 import se.lexicon.daniel.vending_machine.assignment4.service.VendingMachineServiceSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.utils.KeyboardInput;
 
 public class ConsoleMenuController {
 	private boolean running;
-	private VendingMachineServiceSignatures VendingMachineServiceInstance;
-	private UserSignatures userInstance;
-	private VendingMachineSignatures vendingMachineInstance;
-	private int userInputCashAmount;
-	private int userInputProductNumber;
+	private VendingMachineServiceSignatures vendingMachineServiceInstance;
 	private int userSwitchInput;
 	
 	public ConsoleMenuController() {
 		
-		VendingMachineServiceInstance = VendingMachineService.getVendingMachineService();
-		VendingMachineServiceInstance.UserDefaultLoadStart();
-		VendingMachineServiceInstance.VendingMachineDefaultLoadStart();
+		vendingMachineServiceInstance = VendingMachineService.getVendingMachineService();
+		vendingMachineServiceInstance.UserDefaultLoadStart();
+		vendingMachineServiceInstance.VendingMachineDefaultLoadStart();
 		
 		running = true;
 		
@@ -52,8 +40,8 @@ public class ConsoleMenuController {
 		boolean stopLoop = false;
 		while(!stopLoop) {
 			System.out.println("\n You stand in front of a vending machine \n" +
-					" \n [Vending Machine] " + vendingMachineInstance.getCashAmount() + " kr " +
-					" \n [Wallet] " + userInstance.getCashAmount() + " kr " + "\n" +
+					" \n [Vending Machine] " + vendingMachineServiceInstance.getVendingMachineCashAmount() + " kr " +
+					" \n [Wallet] " + vendingMachineServiceInstance.getUserCashAmount() + " kr " + "\n" +
 					" \n [1] Examine the product in the machine. \n" +
 					" [2] Insert coin in to the machin. \n" +
 					" [3] Purchase a product. \n" +
@@ -96,7 +84,7 @@ public class ConsoleMenuController {
 				System.out.println("| Eamine inventory for product and coins... |");
 				System.out.println("|-------------------------------------------|");
 				System.out.println("");
-				examineInventoryController();
+				// examineInventoryController();
 				break;
 			case 5:
 				System.out.println("");
@@ -104,7 +92,7 @@ public class ConsoleMenuController {
 				System.out.println("| Use product in inventory... |");
 				System.out.println("|-----------------------------|");
 				System.out.println("");
-				useProductController();
+				// useProductController();
 				break;
 			case 6:
 				System.out.println("");

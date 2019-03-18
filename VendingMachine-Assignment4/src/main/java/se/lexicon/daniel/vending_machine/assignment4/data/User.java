@@ -9,7 +9,7 @@ import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachineSignatur
 
 public class User implements UserSignatures {
 	private VendingMachineSignatures vendingMachineInstance;
-	private Integer userCash = 0;
+	private int cash = 0;
 	
 	private static final UserSignatures userInstance = new User();
 	public static UserSignatures getUserInstance() {return userInstance;}
@@ -17,17 +17,12 @@ public class User implements UserSignatures {
 	private List<Product> userInventory;
 	private User() {userInventory = new ArrayList<>();}
 	
-	public int getCashAmount() {return userCash;}
-	
-	public void setCashAmount(Integer userCash) {this.userCash = userCash;}
-	
-	public void addCashAmount(Integer userCash) {this.userCash += userCash;}
+	public int getCashAmount() {return cash;}
+	public void setCashAmount(int cash) {this.cash = cash;}
+	public void addCashAmount(int cash) {this.cash += cash;}
 	
 	public Product addToInventory(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
-		if(findProductById(product.getProductId()) != null) {
-			throw new IllegalArgumentException("Product Object with same id exists in storage");
-		}
 		else {
 			this.userInventory.add(product);
 			vendingMachineInstance.removeProduct(product);
@@ -38,9 +33,6 @@ public class User implements UserSignatures {
 	
 	public void useProduct(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
-		if(findProductById(product.getProductId()) != null) {
-			throw new IllegalArgumentException("Product Object with same id exists in storage");
-		}
 		else {	
 			Optional<Product> Productobject = findProductById(product.getProductId());
 			Productobject.get().Use();
@@ -57,13 +49,16 @@ public class User implements UserSignatures {
 
 	}
 	
-	public void removeProduct(Optional<Product> product) {
-		userInventory.remove(product.get());
+	public void removeProduct(Optional<Product> product) throws IllegalArgumentException {
+		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
+		else {
+			userInventory.remove(product.get());
+		}
 	}
 	
-	public Optional<Product> findProductById(Integer id){
+	public Optional<Product> findProductById(int id){
 		return userInventory.stream()
-				.filter(Product -> Product.getProductId().equals(id))
+				.filter(Product -> Product.getProductId() == id)
 				.findFirst();
 	}
 	
@@ -82,4 +77,5 @@ public class User implements UserSignatures {
 		}
 		return objectList;		
 	}
+
 }
