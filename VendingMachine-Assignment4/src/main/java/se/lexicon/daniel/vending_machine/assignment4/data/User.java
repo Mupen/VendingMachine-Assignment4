@@ -23,6 +23,7 @@ public class User implements UserSignatures {
 	
 	public Product addToInventory(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
+		if(userInventory.contains(product)) {throw new IllegalArgumentException("Product Is already in users Inventory");}
 		else {
 			this.userInventory.add(product);
 			vendingMachineInstance.removeProduct(product);
@@ -46,7 +47,6 @@ public class User implements UserSignatures {
 			Optional<Product> Productobject = findProductById(product.getProductId());
 			Productobject.get().Examine();
 		}
-
 	}
 	
 	public void removeProduct(Optional<Product> product) throws IllegalArgumentException {

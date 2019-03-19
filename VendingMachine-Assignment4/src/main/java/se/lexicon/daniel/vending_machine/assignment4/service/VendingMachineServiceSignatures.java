@@ -1,5 +1,7 @@
 package se.lexicon.daniel.vending_machine.assignment4.service;
 
+import java.util.List;
+
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 
 public interface VendingMachineServiceSignatures {
@@ -7,7 +9,8 @@ public interface VendingMachineServiceSignatures {
 	public void VendingMachineDefaultLoadStart();
 	public void UserDefaultLoadStart();
 	
-	public void userExamineProduct(Product product);
+	public String examineUserProduct(Product product);
+	public String examineVendingMachineProduct(Product product);
 	
 	public int getVendingMachineCashAmount();
 	
@@ -21,5 +24,6 @@ public interface VendingMachineServiceSignatures {
 	
 	public void userUseProduct(Product product);
 
-	public void userExamineInventory();
+	public List<Product> examineUserInventory();
+	public List<Product> examineVendingMachineInventory();
 }

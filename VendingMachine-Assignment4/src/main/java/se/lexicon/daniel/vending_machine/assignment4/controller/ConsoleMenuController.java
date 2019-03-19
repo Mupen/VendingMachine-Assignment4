@@ -1,4 +1,5 @@
 package se.lexicon.daniel.vending_machine.assignment4.controller;
+import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
 import se.lexicon.daniel.vending_machine.assignment4.service.VendingMachineService;
 import se.lexicon.daniel.vending_machine.assignment4.service.VendingMachineServiceSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.utils.KeyboardInput;
@@ -7,6 +8,7 @@ public class ConsoleMenuController {
 	private boolean running;
 	private VendingMachineServiceSignatures vendingMachineServiceInstance;
 	private int userSwitchInput;
+	private int tempCoinPool;
 	
 	public ConsoleMenuController() {
 		
@@ -42,7 +44,7 @@ public class ConsoleMenuController {
 			System.out.println("\n You stand in front of a vending machine \n" +
 					" \n [Vending Machine] " + vendingMachineServiceInstance.getVendingMachineCashAmount() + " kr " +
 					" \n [Wallet] " + vendingMachineServiceInstance.getUserCashAmount() + " kr " + "\n" +
-					" \n [1] Examine the product in the machine. \n" +
+					" \n [1] Examine the product " + Denomination._5KR.getValue() + " in the machine. \n" +
 					" [2] Insert coin in to the machin. \n" +
 					" [3] Purchase a product. \n" +
 					" [4] Examine your inventory for coins and products. \n" +
@@ -52,12 +54,13 @@ public class ConsoleMenuController {
 			userSwitchInput = KeyboardInput.getInt();
 			switch (userSwitchInput) {
 			case 1:
+				
 				System.out.println("");
 				System.out.println("|---------------------|");
 				System.out.println("| Examine Products... |");
 				System.out.println("|---------------------|");
 				System.out.println("");
-				// vendingMachineInstance.examineProduct();
+				examineProducts(); // What action do you want to take?
 				break;
 			case 2:
 				System.out.println("");
@@ -65,8 +68,7 @@ public class ConsoleMenuController {
 				System.out.println("| Insert Coin... |");
 				System.out.println("|----------------|");
 				System.out.println("");
-				// userInputCashAmount = KeyboardInput.getInt();
-				// vendingMachineInstance.insertCash(userInputCashAmount);
+				insertCoin();
 				break; 
 			case 3:
 				System.out.println("");
@@ -110,5 +112,46 @@ public class ConsoleMenuController {
 				System.out.println("");
 			}
 		}
+	}
+
+	private void insertCoin() {
+		boolean stopLoop = false;
+		while(!stopLoop) {
+			System.out.println("\n Standing in front of the vending machine you start inserting coins \n"
+					+ "\n [1] 1kr"
+					+ "\n [2] 2kr"
+					+ "\n [3] 5kr"
+					+ "\n [4] 10kr"
+					+ "\n [5] Stop inserting coins");
+			
+			userSwitchInput = KeyboardInput.getInt();
+			switch (userSwitchInput) {
+				case 1: 
+					vendingMachineServiceInstance.addCashToVendingMachine(1); 
+					vendingMachineServiceInstance.addCashToUser(-1); 
+				break;
+				case 2: 
+					vendingMachineServiceInstance.addCashToVendingMachine(2); 
+					vendingMachineServiceInstance.addCashToUser(-2);
+				break; 
+				case 3: 
+					vendingMachineServiceInstance.addCashToVendingMachine(5); 
+					vendingMachineServiceInstance.addCashToUser(-5);
+				break;
+				case 4: 
+					vendingMachineServiceInstance.addCashToVendingMachine(10); 
+					vendingMachineServiceInstance.addCashToUser(-10);
+				break;
+				case 5: stopLoop = true; break;
+				default: System.out.println("Wrong input");
+				
+				
+			}
+		}
+	}
+
+	private void examineProducts() {
+		System.out.println("\n Examining the vending machines products \n");
+		vendingMachineServiceInstance.examineVendingMachineInventory().forEach(n -> System.out.print(n.StringBuilder()));
 	}
 }

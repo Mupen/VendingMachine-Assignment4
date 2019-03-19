@@ -1,5 +1,7 @@
 package se.lexicon.daniel.vending_machine.assignment4.service;
 
+import java.util.List;
+
 import se.lexicon.daniel.vending_machine.assignment4.data.User;
 import se.lexicon.daniel.vending_machine.assignment4.data.UserSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachine;
@@ -22,7 +24,7 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 		userInstance = User.getUserInstance();
 		vendingMachineInstance = VendingMachine.getVendingMachineInstance();
 	}
-	
+
 	public void VendingMachineDefaultLoadStart() {
 		this.vendingMachineInstance.setCashAmount(200); // 100k
 		
@@ -109,36 +111,52 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 		Denomination tenKr  = Denomination._10KR;
 	}
 	
+	@Override
 	public void userUseProduct(Product product) {
 		this.userInstance.useProduct(product);
 	}
 
-	public void userExamineInventory() {
-		userInstance.findAllProducts().toString();
+	@Override
+	public List<Product> examineUserInventory() {
+		return userInstance.findAllProducts();
+	}
+	
+	@Override
+	public List<Product> examineVendingMachineInventory() {
+		return vendingMachineInstance.findAllProducts();
+		
 	}
 
+	@Override
 	public void userPurchaseProduct(int code) {
 		Product tempProduct = vendingMachineInstance.findProductByCode(code).get();
 		userInstance.addToInventory(tempProduct);
 		vendingMachineInstance.removeProduct(tempProduct);
 	}
 
-	public void userInsertCoin() {
-		// TODO Auto-generated method stub
-	}
+	@Override
+	public String examineUserProduct(Product product) {return product.toString();}
 	
-	public void VendingMachineReturnCoin() {
-		// TODO Auto-generated method stub
-	}
-
-	public void userExamineProduct(Product product) {product.toString();}
+	@Override
+	public String examineVendingMachineProduct(Product product) {return product.toString();}
 	
+	@Override
 	public int getVendingMachineCashAmount() {return vendingMachineInstance.getCashAmount();}
 	
+	@Override
 	public int getUserCashAmount() {return userInstance.getCashAmount();}
 	
+	@Override
 	public void addCashToVendingMachine(int cash) {vendingMachineInstance.addCashAmount(cash);}
 	
+	@Override
 	public void addCashToUser(int cash) {userInstance.addCashAmount(cash);}
+
+	
+	
+	
+
+
+
 
 }

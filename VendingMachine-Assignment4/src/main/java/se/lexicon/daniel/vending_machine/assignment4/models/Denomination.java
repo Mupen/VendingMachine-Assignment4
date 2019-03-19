@@ -4,21 +4,15 @@ public enum Denomination {
 	_1KR(1),
 	_2KR(2),
 	_5KR(5),
-	_10KR(10),
-	_20KR(20),
-	_50KR(30),
-	_100KR(100),
-	_200KR(200),
-	_500KR(500),
-	_1000KR(1000);
-	private int totalValue;
+	_10KR(10);
 	
+	private int totalValue;
 
-	private Denomination (int value) {
-		this.totalValue = totalValue;
+	private Denomination(int value) { // give the enum the value to the left
+		this.totalValue = value;
 	}
 
-	public int getValue() {
+	public int getValue() { // give the left value of the enum
 		return this.totalValue;
 	}
 
