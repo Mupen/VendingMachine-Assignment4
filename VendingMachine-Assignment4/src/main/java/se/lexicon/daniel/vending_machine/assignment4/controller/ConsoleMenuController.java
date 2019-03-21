@@ -1,5 +1,13 @@
 package se.lexicon.daniel.vending_machine.assignment4.controller;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
@@ -12,20 +20,10 @@ public class ConsoleMenuController {
 	private boolean running;
 	private VendingMachineServiceSignatures vendingMachineServiceInstance;
 	private int userSwitchInput;
-	private int tempCoinPool;
+	private List<Denomination> tempCoinPool;
 	
 	public ConsoleMenuController() {
-		
 		vendingMachineServiceInstance = VendingMachineService.getVendingMachineService();
-		vendingMachineServiceInstance.UserDefaultLoadStart();
-		vendingMachineServiceInstance.VendingMachineDefaultLoadStart();
-		
-		
-		// System.out.println();
-		// vendingMachineServiceInstance.findAllCoins().forEach(e->e.getValue());
-		
-
-		
 		running = true;
 		
 		System.out.println("");
@@ -52,9 +50,9 @@ public class ConsoleMenuController {
 		boolean stopLoop = false;
 		while(!stopLoop) {
 			System.out.println("\n You stand in front of a vending machine \n" +
-					" \n [Value Inserted] " + tempCoinPool + " kr " +
-					" \n [Vending Machine] " + vendingMachineServiceInstance. + " kr " +
-					" \n [Wallet] " + vendingMachineServiceInstance.getUserCashAmount() + " kr " + "\n" +
+					" \n [Value Inserted] " + vendingMachineServiceInstance.getInBetweenCoinsStorageCoinsValue() + " kr " +
+					" \n [Vending Machine] " + vendingMachineServiceInstance.getVendingMachinensCoinsValue() + " kr " +
+					" \n [Wallet] " + vendingMachineServiceInstance.getUsersCoinsValue() + " kr " + "\n" +
 					" \n [1] Examine the product in the machine. \n" +
 					" [2] Insert coin in to the machin. \n" +
 					" [3] Purchase a product. \n" +
@@ -107,6 +105,14 @@ public class ConsoleMenuController {
 				break;
 			case 6:
 				System.out.println("");
+				System.out.println("|-----------------------|");
+				System.out.println("| Ask for the change... |");
+				System.out.println("|-----------------------|");
+				System.out.println("");
+				returnChange();
+				break;
+			case 7:
+				System.out.println("");
 				System.out.println("|------------------------------|");
 				System.out.println("| leave the vending machine... |");
 				System.out.println("|------------------------------|");
@@ -123,6 +129,12 @@ public class ConsoleMenuController {
 		}
 	}
 
+	private void returnChange() {
+		vendingMachineServiceInstance.addCoinsCollectionToUser(
+				vendingMachineServiceInstance.removeCoinsCollectionFromInBetweenStorage(
+						vendingMachineServiceInstance.getInBetweenCoinsStorageCoins()));
+	}
+
 	private void purchaseProduct() {
 		// TODO Auto-generated method stub
 		System.out.println("\n Standing in front of the vending machine \n"
@@ -130,7 +142,7 @@ public class ConsoleMenuController {
 				+ "Product code... ");
 		int userInputCode = KeyboardInput.getInt();
 		Product tempProduct = vendingMachineServiceInstance.userPurchaseProduct(userInputCode);
-		tempCoinPool -= tempProduct.getProductPrice();
+		// tempCoinPool -= tempProduct.getProductPrice();
 	}
 
 	private void insertCoin() {
@@ -149,23 +161,54 @@ public class ConsoleMenuController {
 			
 			userSwitchInput = KeyboardInput.getInt();
 			switch (userSwitchInput) {
-				case 1: tempCoinPool += Denomination._1KR.getValue();break;
-				case 2: tempCoinPool += Denomination._5KR.getValue();break;
-				case 3: tempCoinPool += Denomination._10KR.getValue();break; 
-				case 4: tempCoinPool += Denomination._20KR.getValue();break; 
-				case 5: tempCoinPool += Denomination._50KR.getValue();break; 
-				case 6: tempCoinPool += Denomination._100KR.getValue();break; 
-				case 7: tempCoinPool += Denomination._500KR.getValue();break; 
-				case 8: tempCoinPool += Denomination._1000KR.getValue();break; 
+				case 1: 
+					vendingMachineServiceInstance.removeCoinFromUser(Denomination._1KR);
+					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._1KR);
+					;break;
+				case 2: 
+					vendingMachineServiceInstance.removeCoinFromUser(Denomination._5KR);
+					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._5KR);
+					;break;
+				case 3: 
+					vendingMachineServiceInstance.removeCoinFromUser(Denomination._10KR);
+					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._10KR);
+					break; 
+				case 4: 
+					vendingMachineServiceInstance.removeCoinFromUser(Denomination._20KR);
+					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._20KR);
+					break; 
+				case 5: 
+					vendingMachineServiceInstance.removeCoinFromUser(Denomination._50KR);
+					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._50KR);
+					break;  
+				case 6: 
+					vendingMachineServiceInstance.removeCoinFromUser(Denomination._100KR);
+					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._100KR);
+					break;   
+				case 7: 
+					vendingMachineServiceInstance.removeCoinFromUser(Denomination._500KR);
+					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._500KR);
+					break;   
+				case 8: 
+					vendingMachineServiceInstance.removeCoinFromUser(Denomination._1000KR);
+					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._1000KR);
+					break;   
 				case 9: stopLoop = true; break;
 				default: System.out.println("Wrong input");
 			}
 		}
-		vendingMachineServiceInstance.addCashToUser(-tempCoinPool);
 	}
 
 	private void examineProducts() {
 		System.out.println("\n Examining the vending machines products \n");
-		vendingMachineServiceInstance.examineVendingMachineInventory().forEach(n -> System.out.print(n.StringBuilder()));
+		
+        // Get element stream them and filter them with distinctByKey
+        List<Product> distinctElements = vendingMachineServiceInstance.examineVendingMachineInventory().stream()
+                                            .filter(KeyboardInput.distinctByKey(p -> p.getProductCode()) )
+                                            .collect( Collectors.toList());
+        
+        // Let's verify distinct elements
+        distinctElements.forEach(p->System.out.print(p.StringBuilder()));
+        
 	}
 }

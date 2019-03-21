@@ -7,9 +7,6 @@ import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 
 public interface VendingMachineServiceSignatures {
 	
-	public void VendingMachineDefaultLoadStart();
-	public void UserDefaultLoadStart();
-	
 	public String examineUserProduct(Product product);
 	public String examineVendingMachineProduct(Product product);
 	
@@ -18,16 +15,35 @@ public interface VendingMachineServiceSignatures {
 
 	public List<Product> examineUserInventory();
 	public List<Product> examineVendingMachineInventory();
-	
+
 	public int getUsersCoinsValue();
 	public int getVendingMachinensCoinsValue();
-	
-	public void removeCoinsFromUser(List<Denomination> coins);
-	public void removeCoinsFromVendingMachinen(List<Denomination> coins);
-	
-	public void addCoinsToUser(List<Denomination> coins);
-	public void addCoinsToVendingMachinen(List<Denomination> coins);
+	public int getInBetweenCoinsStorageCoinsValue();
 	
 	public List<Denomination> getAllVendingMachinenCoins();
 	public List<Denomination> getAllUsersCoins();
+	public List<Denomination> getInBetweenCoinsStorageCoins();
+	
+	public void addCoinToUser(Denomination coin);
+	public void addCoinToVendingMachinen(Denomination coin);
+	public void addCoinToInBetweenStorage(Denomination coin) throws IllegalArgumentException;
+	
+	public void addCoinsCollectionToUser(List<Denomination> removeCoinsFromInBetweenStorage);
+	public void addCoinsCollectionToVendingMachinen(List<Denomination> removeCoinsFromInBetweenStorage);
+	public void addCoinsCollectionToInBetweenStorage(List<Denomination> removeCoinsFromInBetweenStorage);
+	
+	public Denomination removeCoinFromUser(Denomination coin);
+	public Denomination removeCoinFromVendingMachinen(Denomination coin);
+	public Denomination removeCoinFromInBetweenStorage(Denomination coins);
+
+	public List<Denomination> removeCoinsCollectionFromInBetweenStorage(List<Denomination> coins);
+	public List<Denomination> removeCoinsCollectionFromUser(List<Denomination> coins);
+	public List<Denomination> removeCoinsCollectionFromVendingMachinen(List<Denomination> coins);
+	
+
+	
+	
+	
+	
+	
 }

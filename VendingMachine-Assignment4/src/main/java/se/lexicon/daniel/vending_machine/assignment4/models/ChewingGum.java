@@ -49,10 +49,7 @@ public class ChewingGum extends Product {
 	@Override
 	public String StringBuilder() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n *** FightingLedger *** \n");
-		
-		sb.append(" [Id] = ");
-		sb.append(super.getProductId() + "\n");
+		sb.append("\n *** Chewing Gum Products*** \n");
 		
 		sb.append(" [Name] = ");
 		sb.append(super.getProductName() + "\n");
@@ -72,7 +69,7 @@ public class ChewingGum extends Product {
 		sb.append(" [Packaging] = ");
 		sb.append(super.getProductPackaging() + "\n");
 		
-		sb.append(" [Packaging] = ");
+		sb.append(" [Weight] = ");
 		sb.append(super.getProductWeight() + "\n");
 		
 		return sb.toString(); 

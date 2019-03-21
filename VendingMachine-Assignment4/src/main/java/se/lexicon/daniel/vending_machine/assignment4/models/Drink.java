@@ -54,10 +54,7 @@ public class Drink extends Product {
 	@Override
 	public String StringBuilder() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\n *** FightingLedger *** \n");
-		
-		sb.append(" [Id] = ");
-		sb.append(super.getProductId() + "\n");
+		sb.append("\n *** Drink Products*** \n");
 		
 		sb.append(" [Name] = ");
 		sb.append(super.getProductName() + "\n");

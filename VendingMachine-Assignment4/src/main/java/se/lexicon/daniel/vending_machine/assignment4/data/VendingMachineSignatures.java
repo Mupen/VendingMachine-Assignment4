@@ -8,8 +8,9 @@ import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 public interface VendingMachineSignatures {
 	
 	public int addCoinsTogether();
-	public void addCoins(List<Denomination> coins);
-	public void removesCoins(List<Denomination> coins);
+	public void addCoin(Denomination coin);
+	public void addCoinsCollection(List<Denomination> coins);
+	public void removesCoin(Denomination coin);
 	
 	public String getInventory();
 	
@@ -21,5 +22,6 @@ public interface VendingMachineSignatures {
 	
 	public List<Product> findAllProducts();
 	public List<Denomination> getVendingMachineCoins();
+	public List<Denomination> removeCoinsCollection(List<Denomination> coins);
 	
 }

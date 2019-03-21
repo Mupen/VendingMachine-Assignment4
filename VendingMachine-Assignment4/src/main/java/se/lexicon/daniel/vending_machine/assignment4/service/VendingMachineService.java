@@ -1,6 +1,9 @@
 package se.lexicon.daniel.vending_machine.assignment4.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import se.lexicon.daniel.vending_machine.assignment4.data.User;
 import se.lexicon.daniel.vending_machine.assignment4.data.UserSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachine;
@@ -10,6 +13,7 @@ import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
 import se.lexicon.daniel.vending_machine.assignment4.models.Drink;
 import se.lexicon.daniel.vending_machine.assignment4.models.Food;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
+import se.lexicon.daniel.vending_machine.assignment4.utils.KeyboardInput;
 
 public class VendingMachineService implements VendingMachineServiceSignatures {
 
@@ -23,116 +27,9 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	VendingMachineService() {
 		userInstance = User.getUserInstance();
 		vendingMachineInstance = VendingMachine.getVendingMachineInstance();
-	}
-
-	@Override
-	public void VendingMachineDefaultLoadStart() {
-
-		/**
-		 * @param productId is an int sequencer
-		 * @param productName is an String
-		 * @param productCode is an int
-		 * @param productPrice is an int
-		 * @param volume is an int
-		 * @param carbonated is an boolean
-		 * @param taste is an String
-		 * @param productPackaging is an String
-		 * @param productWeight is an int
-		 */
-
-		// String productName, int productCode, int productPrice, String productPackaging, int productWeight, int volume, 
-		// boolean carbonated, String taste, String packaging, int weight
-
-		this.vendingMachineInstance.addProduct(new Drink("Coca Cola Zero", 1, 12, 33, true, "Sodium citrate", "Can", 360));
-		this.vendingMachineInstance.addProduct(new Drink("Coca Cola Zero", 1, 12, 33, true, "Sodium citrate", "Can", 360));
-		this.vendingMachineInstance.addProduct(new Drink("Coca Cola Zero", 1, 12, 33, true, "Sodium citrate", "Can", 360));
-
-		this.vendingMachineInstance.addProduct(new Drink("Coca cola light", 2, 12, 33, true, "Citric acid", "Can", 360));
-		this.vendingMachineInstance.addProduct(new Drink("Coca cola light", 2, 12, 33, true, "Citric acid", "Can", 360));
-		this.vendingMachineInstance.addProduct(new Drink("Coca cola light", 2, 12, 33, true, "Citric acid", "Can", 360));
-
-		this.vendingMachineInstance.addProduct(new Drink("Fanta Orange", 3, 12, 33, true, "Orange", "Can", 360));
-		this.vendingMachineInstance.addProduct(new Drink("Fanta Orange", 3, 12, 33, true, "Orange", "Can", 360));
-		this.vendingMachineInstance.addProduct(new Drink("Fanta Orange", 3, 12, 33, true, "Orange", "Can", 360));
-
-		/**
-		 * Food have the following values
-		 * @param productId is an int sequencer
-		 * @param productName is an String
-		 * @param productCode is an int
-		 * @param productPrice is an int
-		 * @param foodtype is an String
-		 * @param taste is an string
-		 * @param productPackaging is an String
-		 * @param weight is an int
-		 */
-
-		this.vendingMachineInstance.addProduct(new Food("Pizza Mozzarella", 4, 32, "Frozen", "Chesey with bread", "Cartons", 450));
-		this.vendingMachineInstance.addProduct(new Food("Pizza Mozzarella", 4, 32, "Frozen", "Chesey with bread", "Cartons", 450));
-		this.vendingMachineInstance.addProduct(new Food("Pizza Mozzarella", 4, 32, "Frozen", "Chesey with bread", "Cartons", 450));
-
-		this.vendingMachineInstance.addProduct(new Food("Ost hamburgare", 5, 45, "Frozen", "Chesey and meaty", "Cartons with plastic", 325));
-		this.vendingMachineInstance.addProduct(new Food("Ost hamburgare", 5, 45, "Frozen", "Chesey and meaty", "Cartons with plastic", 325));
-		this.vendingMachineInstance.addProduct(new Food("Ost hamburgare", 5, 45, "Frozen", "Chesey and meaty", "Cartons with plastic", 325));
-
-		this.vendingMachineInstance.addProduct(new Food("Beer sausage", 6, 20, "Plastic", "Beer with a spicy mix", "can", 225));
-		this.vendingMachineInstance.addProduct(new Food("Beer sausage", 6, 20, "Plastic", "Beer with a spicy mix", "can", 225));
-		this.vendingMachineInstance.addProduct(new Food("Beer sausage", 6, 20, "Plastic", "Beer with a spicy mix", "can", 225));
-		/**
-		 * Chewing Gum have the following values
-		 * @param productId is an int sequencer
-		 * @param productName is an String
-		 * @param productCode is an int
-		 * @param productPrice is an int
-		 * @param amount is an int
-		 * @param taste is an String
-		 * @param packaging is an String
-		 * @param Weight is an String
-		 */
-
-		this.vendingMachineInstance.addProduct(new ChewingGum("Doublemint", 7, 30, 20, "Mint", "Bottle 150ml", 72));
-		this.vendingMachineInstance.addProduct(new ChewingGum("Doublemint", 7, 30, 20, "Mint", "Bottle 150ml", 72));
-		this.vendingMachineInstance.addProduct(new ChewingGum("Doublemint", 7, 30, 20, "Mint", "Bottle 150ml", 72));
-
-		this.vendingMachineInstance.addProduct(new ChewingGum("Juicy Fruit", 8, 20, 25, "Banana", "Plastic bag", 42));
-		this.vendingMachineInstance.addProduct(new ChewingGum("Juicy Fruit", 8, 20, 25, "Banana", "Plastic bag", 42));
-		this.vendingMachineInstance.addProduct(new ChewingGum("Juicy Fruit", 8, 20, 25, "Banana", "Plastic bag", 42));
-
-		this.vendingMachineInstance.addProduct(new ChewingGum("Dubble Bubble", 9, 10, 10, "Lemonade", "paper", 36));
-		this.vendingMachineInstance.addProduct(new ChewingGum("Dubble Bubble", 9, 10, 10, "Lemonade", "paper", 36));
-		this.vendingMachineInstance.addProduct(new ChewingGum("Dubble Bubble", 9, 10, 10, "Lemonade", "paper", 36));
+		inBetweenCoinsStorage = new ArrayList<Denomination>();
 	}
 	
-	@Override
-	public void UserDefaultLoadStart() {this.userInstance.addProduct(new Drink("Coca Cola Zero", 1, 12, 33, true, "Sodium citrate", "Can", 360));}
-
-	@Override
-	public List<Denomination> getAllVendingMachinenCoins() {return vendingMachineInstance.getVendingMachineCoins();}
-	
-	@Override
-	public List<Denomination> getAllUsersCoins() {return userInstance.getUserCoins();}
-	
-	@Override
-	public int getUsersCoinsValue() {return userInstance.addCoinsTogether();}
-	
-	@Override
-	public int getVendingMachinensCoinsValue() {return vendingMachineInstance.addCoinsTogether();}	
-
-	@Override
-	public void removeCoinsFromUser(List<Denomination> coins) {userInstance.removesCoins(coins);}
-	
-	@Override
-	public void removeCoinsFromVendingMachinen(List<Denomination> coins) {vendingMachineInstance.removesCoins(coins);}	
-	
-	@Override
-	public void addCoinsToUser(List<Denomination> coins) {userInstance.addCoins(coins);}
-	
-	@Override
-	public void addCoinsToVendingMachinen(List<Denomination> coins) {vendingMachineInstance.addCoins(coins);}
-	
-	@Override
-	public void userUseProduct(Product product) {this.userInstance.useProduct(product);}
-
 	@Override
 	public List<Product> examineUserInventory() {return userInstance.findAllProducts();}
 
@@ -144,6 +41,9 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 
 	@Override
 	public String examineVendingMachineProduct(Product product) {return product.toString();}
+	
+	@Override
+	public void userUseProduct(Product product) {this.userInstance.useProduct(product);}
 
 	@Override
 	public Product userPurchaseProduct(int code) {
@@ -152,6 +52,121 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 		vendingMachineInstance.removeProduct(tempProduct);
 		return tempProduct;
 	}
+	
+	
+	
+
+	@Override
+	public int getUsersCoinsValue() {return userInstance.addCoinsTogether();}
+	
+	@Override
+	public int getVendingMachinensCoinsValue() {return vendingMachineInstance.addCoinsTogether();}	
+
+	@Override
+	public int getInBetweenCoinsStorageCoinsValue() {
+		int coinsToValue = 0;
+		for(Denomination denomination : inBetweenCoinsStorage) {
+			coinsToValue += denomination.getValue();
+		}
+		return coinsToValue;	
+	}
+
+	
+	
+	
+	
+	@Override
+	public List<Denomination> getAllVendingMachinenCoins() {return vendingMachineInstance.getVendingMachineCoins();}
+	
+	@Override
+	public List<Denomination> getAllUsersCoins() {return userInstance.getUserCoins();}
+	
+	@Override
+	public List<Denomination> getInBetweenCoinsStorageCoins() {return this.inBetweenCoinsStorage;}
+	
+	
+	
+	@Override
+	public void addCoinToUser(Denomination coin) {userInstance.addCoin(coin);}
+	
+	@Override
+	public void addCoinToVendingMachinen(Denomination coin) {vendingMachineInstance.addCoin(coin);}
+	
+	@Override
+	public void addCoinToInBetweenStorage(Denomination coin) throws IllegalArgumentException {
+		if(!coin.equals(null)) {inBetweenCoinsStorage.add(coin);}
+		else {throw new IllegalArgumentException("Denomination elements is null");}
+	}
+	
+	
+	@Override
+	public void addCoinsCollectionToUser(List<Denomination> coins) {userInstance.addCoinsCollection(coins);}
+	
+	@Override
+	public void addCoinsCollectionToVendingMachinen(List<Denomination> coins) {vendingMachineInstance.addCoinsCollection(coins);}
+	
+	@Override
+	public void addCoinsCollectionToInBetweenStorage(List<Denomination> coins) throws IllegalArgumentException {
+		if(!coins.contains(null)) {inBetweenCoinsStorage.addAll(coins);}
+		else {throw new IllegalArgumentException("Denomination elements is null");}
+	}
+	
+	
+	
+	
+	
+	@Override
+	public Denomination removeCoinFromUser(Denomination coin) {userInstance.removesCoin(coin); return coin;}
+	
+	@Override
+	public Denomination removeCoinFromVendingMachinen(Denomination coin) {vendingMachineInstance.removesCoin(coin); return coin;}	
+	
+	@Override
+	public Denomination removeCoinFromInBetweenStorage(Denomination coin) {
+		for(Denomination denomination : inBetweenCoinsStorage) {
+			if(coin.equals(denomination)) {
+				inBetweenCoinsStorage.remove(denomination);
+			}
+		}
+		return coin;
+	}
+	
+	
+	@Override
+	public List<Denomination> removeCoinsCollectionFromInBetweenStorage(List<Denomination> coins) {
+		this.inBetweenCoinsStorage.removeIf(p -> {return coins.stream().anyMatch(x -> (p.getValue() == x.getValue()));});
+		return coins;
+	}
+	
+	@Override
+	public List<Denomination> removeCoinsCollectionFromUser(List<Denomination> coins) {return userInstance.removeCoinsCollection(coins);}
+
+	@Override
+	public List<Denomination> removeCoinsCollectionFromVendingMachinen(List<Denomination> coins) {return vendingMachineInstance.removeCoinsCollection(coins);}
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
 
 
 

@@ -11,6 +11,16 @@ public enum Denomination {
 	_1000KR(1000);
 	
 	private int totalValue;
+	
+	public int getEnumId() {
+		return enumId;
+	}
+
+	public void setEnumId(int enumId) {
+		this.enumId = enumId;
+	}
+
+	private int enumId;
 
 	private Denomination(int value) { // give the enum the value to the left
 		this.totalValue = value;
