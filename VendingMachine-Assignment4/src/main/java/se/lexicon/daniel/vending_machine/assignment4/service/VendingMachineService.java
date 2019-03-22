@@ -100,49 +100,33 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	
 	
 	@Override
-	public void addCoinsCollectionToUser(List<Denomination> coins) {userInstance.addCoinsCollection(coins);}
-	
-	@Override
-	public void addCoinsCollectionToVendingMachinen(List<Denomination> coins) {vendingMachineInstance.addCoinsCollection(coins);}
-	
-	@Override
 	public void addCoinsCollectionToInBetweenStorage(List<Denomination> coins) throws IllegalArgumentException {
 		if(!coins.contains(null)) {inBetweenCoinsStorage.addAll(coins);}
 		else {throw new IllegalArgumentException("Denomination elements is null");}
 	}
 	
+	@Override
+	public void addCoinsCollectionToUser(List<Denomination> coins) {userInstance.addCoinsCollection(coins);}
 	
+	@Override
+	public void addCoinsCollectionToVendingMachinen(List<Denomination> coins) {vendingMachineInstance.addCoinsCollection(coins);}
 	
+
 	
 	
 	@Override
-	public Denomination removeCoinFromUser(Denomination coin) {userInstance.removesCoin(coin); return coin;}
-	
-	@Override
-	public Denomination removeCoinFromVendingMachinen(Denomination coin) {vendingMachineInstance.removesCoin(coin); return coin;}	
-	
-	@Override
-	public Denomination removeCoinFromInBetweenStorage(Denomination coin) {
-		for(Denomination denomination : inBetweenCoinsStorage) {
-			if(coin.equals(denomination)) {
-				inBetweenCoinsStorage.remove(denomination);
-			}
+	public void removeCoinsCollectionFromInBetweenStorage(List<Denomination> coins) {
+		for(Denomination denomination : coins) {
+			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
+			this.inBetweenCoinsStorage.removeIf(c->c.equals(denomination));
 		}
-		return coin;
-	}
-	
-	
-	@Override
-	public List<Denomination> removeCoinsCollectionFromInBetweenStorage(List<Denomination> coins) {
-		this.inBetweenCoinsStorage.removeIf(p -> {return coins.stream().anyMatch(x -> (p.getValue() == x.getValue()));});
-		return coins;
 	}
 	
 	@Override
-	public List<Denomination> removeCoinsCollectionFromUser(List<Denomination> coins) {return userInstance.removeCoinsCollection(coins);}
+	public void removeCoinsCollectionFromUser(List<Denomination> coins) {userInstance.removeCoinsCollection(coins);}
 
 	@Override
-	public List<Denomination> removeCoinsCollectionFromVendingMachinen(List<Denomination> coins) {return vendingMachineInstance.removeCoinsCollection(coins);}
+	public void removeCoinsCollectionFromVendingMachinen(List<Denomination> coins) {vendingMachineInstance.removeCoinsCollection(coins);}
 	
 	
 	

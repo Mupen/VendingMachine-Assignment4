@@ -59,14 +59,12 @@ public class User implements UserSignatures {
 		userCoinsStorage.add(one);
 		userCoinsStorage.add(one);
 		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
 		userCoinsStorage.add(five);
 		userCoinsStorage.add(five);
 		userCoinsStorage.add(five);
 		userCoinsStorage.add(five);
 		userCoinsStorage.add(five);
 		userCoinsStorage.add(five);
-		userCoinsStorage.add(ten);
 		userCoinsStorage.add(ten);
 		userCoinsStorage.add(ten);
 		userCoinsStorage.add(ten);
@@ -74,98 +72,34 @@ public class User implements UserSignatures {
 		userCoinsStorage.add(ten);
 		userCoinsStorage.add(ten);
 		userCoinsStorage.add(twenty);
+		userCoinsStorage.add(twenty);
 		userCoinsStorage.add(fifty);
 		userCoinsStorage.add(oneHundred);
 		userCoinsStorage.add(fiveHundred);
 		userCoinsStorage.add(oneThousand);
 		
 		userInventory.add(new Drink("Coca Cola Zero", 1, 12, 33, true, "Sodium citrate", "Can", 360));
-		
 	}
 	
+	
+	
+	
 	@Override
-	public Product addProduct(Product product) throws IllegalArgumentException {
+	public void addProduct(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
-		if(userInventory.contains(product)) {throw new IllegalArgumentException("Product Is already in users Inventory");}
+		if(userInventory.stream().anyMatch(p -> p.getProductId() == product.getProductId())) {throw new IllegalArgumentException("Product Is already in users Inventory");}
 		else {
 			this.userInventory.add(product);
 			vendingMachineInstance.removeProduct(product);
-			System.out.println(product.getProductName() + "Was added to user inventory and removed Vending Machine inventory ");
-			return product;
-		}	
-	}
-	
-	@Override
-	public List<Denomination> getUserCoins() {return this.userCoinsStorage;}
-	
-	@Override
-	public int addCoinsTogether() {
-		int coinsToValue = 0;
-		for(Denomination denomination : userCoinsStorage) {
-			coinsToValue += denomination.getValue();
-		}
-		return coinsToValue;	
-	}
-	
-	@Override
-	public void addCoin(Denomination coin) throws IllegalArgumentException {
-		if(coin == null) {throw new IllegalArgumentException("Coin is null");}
-		if(userCoinsStorage.contains(coin)) {throw new IllegalArgumentException("Coin is already in users Inventory");}
-		else {
-			userCoinsStorage.add(coin);
+			System.out.println(product.getProductName() + "Was added to user inventory and removed from Vending Machine inventory ");
 		}
 	}
-	
-	
-	public void addCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
-		
-		coins.stream().filter(p-> {return userCoinsStorage.stream().filter(n->) n.getUserCoins() p});
-		
-		for(Denomination denomination : coins) {
-			if(!coins.contains(null) && !coins.stream().anyMatch(c->c)) 
-			
-			{ userCoinsStorage.add(denomination);}
-			else { throw new IllegalArgumentException("Denomination elements is null");}
-		}
-	}
-	
-	
-	
-	@Override
-	public void removesCoin(Denomination coins) {
-		if (userCoinsStorage.contains(coins)) {
-			userCoinsStorage.remove(coins);
-		}
-		
-//		for(Denomination denomination : userCoinsStorage) {
-//			if(coins.equals(denomination)) {userCoinsStorage.remove(denomination);}
-//			else {System.out.println("You dont have " + coins.getValue());}
-//		}
-	}
-
-
-	
-	
-	
-	@Override
-	public List<Denomination> removeCoinsCollection(List<Denomination> coins) {
-		this.userCoinsStorage.removeIf(p -> {return coins.stream().anyMatch(x -> (p.getValue() == x.getValue()));});
-		return coins;
-	}
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public void useProduct(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
-		else {	
-			Optional<Product> Productobject = findProductById(product.getProductId());
-			Productobject.get().Use();
-			removeProduct(Productobject);
+		if(userInventory.stream().anyMatch(p->p.getProductId() == product.getProductId())) {
+			this.userInventory.remove(product);
 		}
 	}
 	
@@ -173,8 +107,8 @@ public class User implements UserSignatures {
 	public void examineProduct(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
 		else {
-			Optional<Product> Productobject = findProductById(product.getProductId());
-			Productobject.get().Examine();
+			Optional<Product> productObject = findProductById(product.getProductId());
+			productObject.get().Examine();
 		}
 	}
 	
@@ -210,8 +144,34 @@ public class User implements UserSignatures {
 		}
 		return objectList;		
 	}
-
 	
-
-
+	
+	
+	@Override
+	public List<Denomination> getUserCoins() {return this.userCoinsStorage;}
+	
+	@Override
+	public int addCoinsTogether() {
+		int coinsToValue = 0;
+		for(Denomination denomination : userCoinsStorage) {
+			coinsToValue += denomination.getValue();
+		}
+		return coinsToValue;	
+	}
+	
+	@Override
+	public void addCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
+		for(Denomination denomination : coins) {
+			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
+			else {userCoinsStorage.add(denomination);}
+		}
+	}
+	
+	@Override
+	public void removeCoinsCollection(List<Denomination> coins) {
+		for(Denomination denomination : coins) {
+			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
+			this.userCoinsStorage.removeIf(c->c.equals(denomination));
+		}
+	}
 }

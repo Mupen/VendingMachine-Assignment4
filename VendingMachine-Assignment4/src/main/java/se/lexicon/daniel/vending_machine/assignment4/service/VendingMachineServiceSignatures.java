@@ -36,14 +36,8 @@ public interface VendingMachineServiceSignatures {
 	public Denomination removeCoinFromVendingMachinen(Denomination coin);
 	public Denomination removeCoinFromInBetweenStorage(Denomination coins);
 
-	public List<Denomination> removeCoinsCollectionFromInBetweenStorage(List<Denomination> coins);
-	public List<Denomination> removeCoinsCollectionFromUser(List<Denomination> coins);
-	public List<Denomination> removeCoinsCollectionFromVendingMachinen(List<Denomination> coins);
-	
-
-	
-	
-	
-	
+	public void removeCoinsCollectionFromInBetweenStorage(List<Denomination> coins);
+	public void removeCoinsCollectionFromUser(List<Denomination> coins);
+	public void removeCoinsCollectionFromVendingMachinen(List<Denomination> coins);
 	
 }

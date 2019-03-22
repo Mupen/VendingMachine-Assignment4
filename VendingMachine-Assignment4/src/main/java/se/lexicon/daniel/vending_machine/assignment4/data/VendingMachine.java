@@ -24,6 +24,7 @@ public class VendingMachine implements VendingMachineSignatures {
 	
 	private List<Denomination> vendingMachineCoinsStorage;
 	private List<Product> vendingMachineInventory;
+	
 	private VendingMachine() {
 		
 		one = Denomination._1KR;
@@ -154,79 +155,45 @@ public class VendingMachine implements VendingMachineSignatures {
 		
 	}
 	
-	public List<Denomination> getVendingMachineCoins() {return this.vendingMachineCoinsStorage;}
-	
-	public int addCoinsTogether() {
-		int coinsToValue = 0;
-		for(Denomination denomination : vendingMachineCoinsStorage) {
-			coinsToValue += denomination.getValue();
-		}
-		return coinsToValue;	
-	}
-	
-	public void addCoin(Denomination coin) throws IllegalArgumentException {
-		if(!coin.equals(null)) {vendingMachineCoinsStorage.add(coin);}
-		else {throw new IllegalArgumentException("Denomination elements is null");}
-	}
-	
-	public void addCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
-		if(!coins.contains(null)) {vendingMachineCoinsStorage.addAll(coins);}
-		else {throw new IllegalArgumentException("Denomination elements is null");}
-	}
-	
-	public void removesCoin(Denomination coins) {
-		for(Denomination denomination : vendingMachineCoinsStorage) {
-			if(coins.equals(denomination)) {
-				vendingMachineCoinsStorage.remove(denomination);
-			}
-		}
-	}
-	
-	
-	
 	
 	
 	@Override
-	public List<Denomination> removeCoinsCollection(List<Denomination> coins) {
-		this.vendingMachineCoinsStorage.removeIf(p -> {return coins.stream().anyMatch(x -> (p.getValue() == x.getValue()));});
-		return coins;
-	}
-	
-	
-	
-	
-	
-	
-
-	public String getInventory() {return vendingMachineInventory.toString();}
-	
 	public void addProduct(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
+		if(vendingMachineInventory.stream().anyMatch(p -> p.getProductId() == product.getProductId())) {throw new IllegalArgumentException("Product Is already in vending machine Inventory");}
 		else {
 			this.vendingMachineInventory.add(product);
-		}	
+			vendingMachineInstance.removeProduct(product);
+			System.out.println(product.getProductName() + "Was added to vending machine inventory and removed from users inventory ");
+		}
 	}
 	
+	@Override
 	public void removeProduct(Product product) {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
-		else {
+		if(vendingMachineInventory.stream().anyMatch(p->p.getProductId() == product.getProductId())) {
 			this.vendingMachineInventory.remove(product);
 		}
 	}
 	
-
+	@Override
+	public String getInventory() {return vendingMachineInventory.toString();}
+	
+	@Override
 	public Optional<Product> findProductById(int id){
 		return vendingMachineInventory.stream()
 				.filter(Product -> Product.getProductId() == id)
 				.findFirst();
 	}
 	
+	@Override
 	public Optional<Product> findProductByCode(int code){
 		return vendingMachineInventory.stream()
 				.filter(Product -> Product.getProductCode() == code)
 				.findFirst();
 	}
 
+	@Override
 	public List<Product> findAllProducts() {
 		List<Product> objectList = new ArrayList<Product>();
 		for(Product productObject : vendingMachineInventory) {
@@ -236,5 +203,41 @@ public class VendingMachine implements VendingMachineSignatures {
 		}
 		return objectList;		
 	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<Denomination> getVendingMachineCoins() {return this.vendingMachineCoinsStorage;}
+	
+	@Override
+	public int addCoinsTogether() {
+		int coinsToValue = 0;
+		for(Denomination denomination : vendingMachineCoinsStorage) {
+			coinsToValue += denomination.getValue();
+		}
+		return coinsToValue;	
+	}
+	
+	@Override
+	public void addCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
+		if(!coins.contains(null)) {vendingMachineCoinsStorage.addAll(coins);}
+		else {throw new IllegalArgumentException("Denomination elements is null");}
+	}
+	
+	@Override
+	public void removeCoinsCollection(List<Denomination> coins) {
+		for(Denomination denomination : coins) {
+			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
+			this.vendingMachineCoinsStorage.removeIf(c->c.equals(denomination));
+		}
+	}
+	
+	
+	
+	// removeCoinsCollection this.vendingMachineCoinsStorage.removeIf(p -> {return coins.stream().anyMatch(x -> (p.getValue() == x.getValue()));});
 }

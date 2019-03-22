@@ -25,7 +25,7 @@ public class ConsoleMenuController {
 	public ConsoleMenuController() {
 		vendingMachineServiceInstance = VendingMachineService.getVendingMachineService();
 		running = true;
-		
+
 		System.out.println("");
 		System.out.println("|------------------------------------|");
 		System.out.println("|    Vending Machine Assignment 4    |");
