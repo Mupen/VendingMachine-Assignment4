@@ -1,6 +1,7 @@
 package se.lexicon.daniel.vending_machine.assignment4.data;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -168,10 +169,11 @@ public class User implements UserSignatures {
 	}
 	
 	@Override
-	public void removeCoinsCollection(List<Denomination> coins) {
+	public void removeCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
 		for(Denomination denomination : coins) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			this.userCoinsStorage.removeIf(c->c.equals(denomination));
+			else {userCoinsStorage.forEach(c->c.equals(denomination));
+			}
 		}
 	}
 }

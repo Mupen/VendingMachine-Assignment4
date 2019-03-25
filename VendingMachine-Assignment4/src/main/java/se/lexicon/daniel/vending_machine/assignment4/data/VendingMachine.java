@@ -169,7 +169,7 @@ public class VendingMachine implements VendingMachineSignatures {
 	}
 	
 	@Override
-	public void removeProduct(Product product) {
+	public void removeProduct(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
 		if(vendingMachineInventory.stream().anyMatch(p->p.getProductId() == product.getProductId())) {
 			this.vendingMachineInventory.remove(product);
@@ -225,8 +225,10 @@ public class VendingMachine implements VendingMachineSignatures {
 	
 	@Override
 	public void addCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
-		if(!coins.contains(null)) {vendingMachineCoinsStorage.addAll(coins);}
-		else {throw new IllegalArgumentException("Denomination elements is null");}
+		for(Denomination denomination : coins) {
+			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
+			else {vendingMachineCoinsStorage.add(denomination);}
+		}
 	}
 	
 	@Override

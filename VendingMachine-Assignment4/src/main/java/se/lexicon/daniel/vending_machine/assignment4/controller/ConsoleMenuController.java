@@ -18,12 +18,12 @@ import se.lexicon.daniel.vending_machine.assignment4.utils.KeyboardInput;
 
 public class ConsoleMenuController {
 	private boolean running;
-	private VendingMachineServiceSignatures vendingMachineServiceInstance;
+	private VendingMachineServiceSignatures serviceInstance;
 	private int userSwitchInput;
 	private List<Denomination> tempCoinPool;
 	
 	public ConsoleMenuController() {
-		vendingMachineServiceInstance = VendingMachineService.getVendingMachineService();
+		serviceInstance = VendingMachineService.getVendingMachineService();
 		running = true;
 
 		System.out.println("");
@@ -50,9 +50,9 @@ public class ConsoleMenuController {
 		boolean stopLoop = false;
 		while(!stopLoop) {
 			System.out.println("\n You stand in front of a vending machine \n" +
-					" \n [Value Inserted] " + vendingMachineServiceInstance.getInBetweenCoinsStorageCoinsValue() + " kr " +
-					" \n [Vending Machine] " + vendingMachineServiceInstance.getVendingMachinensCoinsValue() + " kr " +
-					" \n [Wallet] " + vendingMachineServiceInstance.getUsersCoinsValue() + " kr " + "\n" +
+					" \n [Value Inserted] " + serviceInstance.getInBetweenCoinsStorageCoinsValue() + " kr " +
+					" \n [Vending Machine] " + serviceInstance.getVendingMachinensCoinsValue() + " kr " +
+					" \n [Wallet] " + serviceInstance.getUsersCoinsValue() + " kr " + "\n" +
 					" \n [1] Examine the product in the machine. \n" +
 					" [2] Insert coin in to the machin. \n" +
 					" [3] Purchase a product. \n" +
@@ -130,9 +130,9 @@ public class ConsoleMenuController {
 	}
 
 	private void returnChange() {
-		vendingMachineServiceInstance.addCoinsCollectionToUser(
-				vendingMachineServiceInstance.removeCoinsCollectionFromInBetweenStorage(
-						vendingMachineServiceInstance.getInBetweenCoinsStorageCoins()));
+		List<Denomination> tempList = serviceInstance.getInBetweenCoinsStorageCoins();
+		serviceInstance.addCoinsToUser(tempList);
+		serviceInstance.removeCoinsFromInBetweenStorage(tempList);
 	}
 
 	private void purchaseProduct() {
@@ -141,7 +141,7 @@ public class ConsoleMenuController {
 				+ "\n What product do you want to purchase \n"
 				+ "Product code... ");
 		int userInputCode = KeyboardInput.getInt();
-		Product tempProduct = vendingMachineServiceInstance.userPurchaseProduct(userInputCode);
+		Product tempProduct = serviceInstance.userPurchaseProduct(userInputCode);
 		// tempCoinPool -= tempProduct.getProductPrice();
 	}
 
@@ -162,36 +162,36 @@ public class ConsoleMenuController {
 			userSwitchInput = KeyboardInput.getInt();
 			switch (userSwitchInput) {
 				case 1: 
-					vendingMachineServiceInstance.removeCoinFromUser(Denomination._1KR);
-					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._1KR);
+					serviceInstance.removeCoinFromUser(Denomination._1KR);
+					serviceInstance.addCoinToInBetweenStorage(Denomination._1KR);
 					;break;
 				case 2: 
-					vendingMachineServiceInstance.removeCoinFromUser(Denomination._5KR);
-					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._5KR);
+					serviceInstance.removeCoinFromUser(Denomination._5KR);
+					serviceInstance.addCoinToInBetweenStorage(Denomination._5KR);
 					;break;
 				case 3: 
-					vendingMachineServiceInstance.removeCoinFromUser(Denomination._10KR);
-					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._10KR);
+					serviceInstance.removeCoinFromUser(Denomination._10KR);
+					serviceInstance.addCoinToInBetweenStorage(Denomination._10KR);
 					break; 
 				case 4: 
-					vendingMachineServiceInstance.removeCoinFromUser(Denomination._20KR);
-					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._20KR);
+					serviceInstance.removeCoinFromUser(Denomination._20KR);
+					serviceInstance.addCoinToInBetweenStorage(Denomination._20KR);
 					break; 
 				case 5: 
-					vendingMachineServiceInstance.removeCoinFromUser(Denomination._50KR);
-					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._50KR);
+					serviceInstance.removeCoinFromUser(Denomination._50KR);
+					serviceInstance.addCoinToInBetweenStorage(Denomination._50KR);
 					break;  
 				case 6: 
-					vendingMachineServiceInstance.removeCoinFromUser(Denomination._100KR);
-					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._100KR);
+					serviceInstance.removeCoinFromUser(Denomination._100KR);
+					serviceInstance.addCoinToInBetweenStorage(Denomination._100KR);
 					break;   
 				case 7: 
-					vendingMachineServiceInstance.removeCoinFromUser(Denomination._500KR);
-					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._500KR);
+					serviceInstance.removeCoinFromUser(Denomination._500KR);
+					serviceInstance.addCoinToInBetweenStorage(Denomination._500KR);
 					break;   
 				case 8: 
-					vendingMachineServiceInstance.removeCoinFromUser(Denomination._1000KR);
-					vendingMachineServiceInstance.addCoinToInBetweenStorage(Denomination._1000KR);
+					serviceInstance.removeCoinFromUser(Denomination._1000KR);
+					serviceInstance.addCoinToInBetweenStorage(Denomination._1000KR);
 					break;   
 				case 9: stopLoop = true; break;
 				default: System.out.println("Wrong input");
@@ -203,7 +203,7 @@ public class ConsoleMenuController {
 		System.out.println("\n Examining the vending machines products \n");
 		
         // Get element stream them and filter them with distinctByKey
-        List<Product> distinctElements = vendingMachineServiceInstance.examineVendingMachineInventory().stream()
+        List<Product> distinctElements = serviceInstance.examineVendingMachineInventory().stream()
                                             .filter(KeyboardInput.distinctByKey(p -> p.getProductCode()) )
                                             .collect( Collectors.toList());
         

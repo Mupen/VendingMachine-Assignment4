@@ -53,9 +53,6 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 		return tempProduct;
 	}
 	
-	
-	
-
 	@Override
 	public int getUsersCoinsValue() {return userInstance.addCoinsTogether();}
 	
@@ -73,8 +70,6 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 
 	
 	
-	
-	
 	@Override
 	public List<Denomination> getAllVendingMachinenCoins() {return vendingMachineInstance.getVendingMachineCoins();}
 	
@@ -86,84 +81,38 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	
 	
 	
-	@Override
-	public void addCoinToUser(Denomination coin) {userInstance.addCoin(coin);}
 	
 	@Override
-	public void addCoinToVendingMachinen(Denomination coin) {vendingMachineInstance.addCoin(coin);}
+	public void addCoinsToUser(List<Denomination> coins) {userInstance.addCoinsCollection(coins);}
 	
 	@Override
-	public void addCoinToInBetweenStorage(Denomination coin) throws IllegalArgumentException {
-		if(!coin.equals(null)) {inBetweenCoinsStorage.add(coin);}
-		else {throw new IllegalArgumentException("Denomination elements is null");}
-	}
-	
+	public void addCoinsToVendingMachinen(List<Denomination> coins) {vendingMachineInstance.addCoinsCollection(coins);}
 	
 	@Override
-	public void addCoinsCollectionToInBetweenStorage(List<Denomination> coins) throws IllegalArgumentException {
-		if(!coins.contains(null)) {inBetweenCoinsStorage.addAll(coins);}
-		else {throw new IllegalArgumentException("Denomination elements is null");}
-	}
-	
-	@Override
-	public void addCoinsCollectionToUser(List<Denomination> coins) {userInstance.addCoinsCollection(coins);}
-	
-	@Override
-	public void addCoinsCollectionToVendingMachinen(List<Denomination> coins) {vendingMachineInstance.addCoinsCollection(coins);}
-	
-
-	
-	
-	@Override
-	public void removeCoinsCollectionFromInBetweenStorage(List<Denomination> coins) {
+	public void addCoinsToInBetweenStorage(List<Denomination> coins) throws IllegalArgumentException {
 		for(Denomination denomination : coins) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			this.inBetweenCoinsStorage.removeIf(c->c.equals(denomination));
+			else {inBetweenCoinsStorage.add(denomination);}
 		}
 	}
 	
+	
 	@Override
-	public void removeCoinsCollectionFromUser(List<Denomination> coins) {userInstance.removeCoinsCollection(coins);}
+	public void removeCoinsFromUser(List<Denomination> coins) {userInstance.removeCoinsCollection(coins);}
 
 	@Override
-	public void removeCoinsCollectionFromVendingMachinen(List<Denomination> coins) {vendingMachineInstance.removeCoinsCollection(coins);}
+	public void removeCoinsFromVendingMachinen(List<Denomination> coins) {vendingMachineInstance.removeCoinsCollection(coins);}
 	
+	@Override
+	public void removeCoinsFromInBetweenStorage(List<Denomination> coins) {
+		for(Denomination denomination : coins) {
+			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
+			else {
+				this.inBetweenCoinsStorage.removeIf(c->c.equals(denomination));
+			}
+		}
+	}
 	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

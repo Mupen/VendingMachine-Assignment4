@@ -24,20 +24,13 @@ public interface VendingMachineServiceSignatures {
 	public List<Denomination> getAllUsersCoins();
 	public List<Denomination> getInBetweenCoinsStorageCoins();
 	
-	public void addCoinToUser(Denomination coin);
-	public void addCoinToVendingMachinen(Denomination coin);
-	public void addCoinToInBetweenStorage(Denomination coin) throws IllegalArgumentException;
+	public void addCoinsToUser(List<Denomination> coins);
+	public void addCoinsToVendingMachinen(List<Denomination> coins);
+	public void addCoinsToInBetweenStorage(List<Denomination> coins);
 	
-	public void addCoinsCollectionToUser(List<Denomination> removeCoinsFromInBetweenStorage);
-	public void addCoinsCollectionToVendingMachinen(List<Denomination> removeCoinsFromInBetweenStorage);
-	public void addCoinsCollectionToInBetweenStorage(List<Denomination> removeCoinsFromInBetweenStorage);
+	public void removeCoinsFromUser(List<Denomination> coins);
+	public void removeCoinsFromVendingMachinen(List<Denomination> coins);
+	public void removeCoinsFromInBetweenStorage(List<Denomination> coins);
 	
-	public Denomination removeCoinFromUser(Denomination coin);
-	public Denomination removeCoinFromVendingMachinen(Denomination coin);
-	public Denomination removeCoinFromInBetweenStorage(Denomination coins);
-
-	public void removeCoinsCollectionFromInBetweenStorage(List<Denomination> coins);
-	public void removeCoinsCollectionFromUser(List<Denomination> coins);
-	public void removeCoinsCollectionFromVendingMachinen(List<Denomination> coins);
 	
 }
