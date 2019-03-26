@@ -111,6 +111,7 @@ public class VendingMachineServiceTest {
 	@Test
 	public void test_removeCoinsFromUser() {
 		assertEquals(value1, value2);
+		System.out.println(x);
 		serviceInstance.removeCoinsFromUser(tempList1);
 		for(ObjectEnum denomination : serviceInstance.getAllUsersCoins()) {value1 += denomination.getDenomination().getValue();}
 		for(ObjectEnum denomination : tempList1) {value2 += denomination.getDenomination().getValue();}
