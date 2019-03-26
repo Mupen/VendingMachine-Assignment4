@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
+import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 
 public interface VendingMachineSignatures {
@@ -16,9 +17,9 @@ public interface VendingMachineSignatures {
 	public List<Product> findAllProducts();
 	
 	// Coins
-	public List<Denomination> getVendingMachineCoins();
+	public List<ObjectEnum> getVendingMachineCoins();
 	public int addCoinsTogether();
-	public void addCoinsCollection(List<Denomination> coins) throws IllegalArgumentException;
-	public void removeCoinsCollection(List<Denomination> coins) throws IllegalArgumentException;
+	public void addCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException;
+	public void removeCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException;
 
 }

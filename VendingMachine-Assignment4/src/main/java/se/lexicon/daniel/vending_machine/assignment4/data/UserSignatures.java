@@ -3,6 +3,7 @@ package se.lexicon.daniel.vending_machine.assignment4.data;
 import java.util.List;
 import java.util.Optional;
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
+import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 
 public interface UserSignatures {
@@ -17,10 +18,10 @@ public interface UserSignatures {
 	public List<Product> findAllProducts();
 	
 	// Coins
-	public List<Denomination> getUserCoins();
+	public List<ObjectEnum> getUserCoins();
 	public int addCoinsTogether();
-	public void addCoinsCollection(List<Denomination> coins);
-	public void removeCoinsCollection(List<Denomination> coins);
+	public void addCoinsCollection(List<ObjectEnum> coins);
+	public void removeCoinsCollection(List<ObjectEnum> coins);
 	
 	
 }

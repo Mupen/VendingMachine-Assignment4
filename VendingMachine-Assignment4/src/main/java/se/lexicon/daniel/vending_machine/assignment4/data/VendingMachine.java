@@ -7,75 +7,38 @@ import se.lexicon.daniel.vending_machine.assignment4.models.ChewingGum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
 import se.lexicon.daniel.vending_machine.assignment4.models.Drink;
 import se.lexicon.daniel.vending_machine.assignment4.models.Food;
+import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 
 public class VendingMachine implements VendingMachineSignatures {
 
 	private static final VendingMachineSignatures vendingMachineInstance = new VendingMachine();
 	public static VendingMachineSignatures getVendingMachineInstance() {return vendingMachineInstance;}
-	private Denomination one;
-	private Denomination five;
-	private Denomination ten;
-	private Denomination twenty;
-	private Denomination fifty;
-	private Denomination oneHundred;
-	private Denomination fiveHundred;
-	private Denomination oneThousand;
 	
-	private List<Denomination> vendingMachineCoinsStorage;
+	ObjectEnum one = new ObjectEnum(Denomination._1KR);
+	ObjectEnum five = new ObjectEnum(Denomination._5KR);
+	ObjectEnum ten = new ObjectEnum(Denomination._10KR);
+	ObjectEnum twenty = new ObjectEnum(Denomination._20KR);
+	ObjectEnum fifty = new ObjectEnum(Denomination._50KR);
+	ObjectEnum oneHundred = new ObjectEnum(Denomination._100KR);
+	ObjectEnum fiveHundred = new ObjectEnum(Denomination._500KR);
+	ObjectEnum oneThousand = new ObjectEnum(Denomination._1000KR);
+	
+	private List<ObjectEnum> vendingMachineCoinsStorage;
 	private List<Product> vendingMachineInventory;
 	
 	private VendingMachine() {
-		
-		one = Denomination._1KR;
-		five = Denomination._5KR;
-		ten = Denomination._10KR;
-		twenty = Denomination._20KR;
-		fifty = Denomination._50KR;
-		oneHundred = Denomination._100KR;
-		fiveHundred = Denomination._500KR;
-		oneThousand = Denomination._1000KR;
-		
 		vendingMachineInventory = new ArrayList<Product>();
-		vendingMachineCoinsStorage = new ArrayList<Denomination>();
+		vendingMachineCoinsStorage = new ArrayList<ObjectEnum>();
 		
 		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(one);
-		vendingMachineCoinsStorage.add(five);
-		vendingMachineCoinsStorage.add(five);
-		vendingMachineCoinsStorage.add(five);
-		vendingMachineCoinsStorage.add(five);
-		vendingMachineCoinsStorage.add(five);
 		vendingMachineCoinsStorage.add(five);
 		vendingMachineCoinsStorage.add(ten);
-		vendingMachineCoinsStorage.add(ten);
-		vendingMachineCoinsStorage.add(ten);
-		vendingMachineCoinsStorage.add(ten);
-		vendingMachineCoinsStorage.add(twenty);
 		vendingMachineCoinsStorage.add(twenty);
 		vendingMachineCoinsStorage.add(fifty);
 		vendingMachineCoinsStorage.add(oneHundred);
 		vendingMachineCoinsStorage.add(fiveHundred);
 		vendingMachineCoinsStorage.add(oneThousand);
-		
 		
 		/**
 		 * @param productId is an int sequencer
@@ -115,7 +78,6 @@ public class VendingMachine implements VendingMachineSignatures {
 		 * @param productPackaging is an String
 		 * @param weight is an int
 		 */
-
 		
 		vendingMachineInventory.add(new Food("Pizza Mozzarella", 4, 32, "Frozen", "Chesey with bread", "Cartons", 450));
 		vendingMachineInventory.add(new Food("Pizza Mozzarella", 4, 32, "Frozen", "Chesey with bread", "Cartons", 450));
@@ -154,8 +116,6 @@ public class VendingMachine implements VendingMachineSignatures {
 		vendingMachineInventory.add(new ChewingGum("Dubble Bubble", 9, 10, 10, "Lemonade", "paper", 36));
 		
 	}
-	
-	
 	
 	@Override
 	public void addProduct(Product product) throws IllegalArgumentException {
@@ -212,28 +172,28 @@ public class VendingMachine implements VendingMachineSignatures {
 	
 	
 	@Override
-	public List<Denomination> getVendingMachineCoins() {return this.vendingMachineCoinsStorage;}
+	public List<ObjectEnum> getVendingMachineCoins() {return this.vendingMachineCoinsStorage;}
 	
 	@Override
 	public int addCoinsTogether() {
 		int coinsToValue = 0;
-		for(Denomination denomination : vendingMachineCoinsStorage) {
-			coinsToValue += denomination.getValue();
+		for(ObjectEnum denomination : vendingMachineCoinsStorage) {
+			coinsToValue += denomination.getDenomination().getValue();
 		}
 		return coinsToValue;	
 	}
 	
 	@Override
-	public void addCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
-		for(Denomination denomination : coins) {
+	public void addCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException {
+		for(ObjectEnum denomination : coins) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
 			else {vendingMachineCoinsStorage.add(denomination);}
 		}
 	}
 	
 	@Override
-	public void removeCoinsCollection(List<Denomination> coins) {
-		for(Denomination denomination : coins) {
+	public void removeCoinsCollection(List<ObjectEnum> coins) {
+		for(ObjectEnum denomination : coins) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
 			this.vendingMachineCoinsStorage.removeIf(c->c.equals(denomination));
 		}

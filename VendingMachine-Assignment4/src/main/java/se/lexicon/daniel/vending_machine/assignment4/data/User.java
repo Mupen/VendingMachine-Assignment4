@@ -5,10 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
 import se.lexicon.daniel.vending_machine.assignment4.models.Drink;
+import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
+import se.lexicon.daniel.vending_machine.assignment4.utils.KeyboardInput;
 import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachineSignatures;
 
 public class User implements UserSignatures {
@@ -17,62 +20,24 @@ public class User implements UserSignatures {
 	private static final UserSignatures userInstance = new User();
 	public static UserSignatures getUserInstance() {return userInstance;}
 	
-	private Denomination one;
-	private Denomination five;
-	private Denomination ten;
-	private Denomination twenty;
-	private Denomination fifty;
-	private Denomination oneHundred;
-	private Denomination fiveHundred;
-	private Denomination oneThousand;
-	private List<Denomination> userCoinsStorage;
+	ObjectEnum one = new ObjectEnum(Denomination._1KR);
+	ObjectEnum five = new ObjectEnum(Denomination._5KR);
+	ObjectEnum ten = new ObjectEnum(Denomination._10KR);
+	ObjectEnum twenty = new ObjectEnum(Denomination._20KR);
+	ObjectEnum fifty = new ObjectEnum(Denomination._50KR);
+	ObjectEnum oneHundred = new ObjectEnum(Denomination._100KR);
+	ObjectEnum fiveHundred = new ObjectEnum(Denomination._500KR);
+	ObjectEnum oneThousand = new ObjectEnum(Denomination._1000KR);
+	private List<ObjectEnum> userCoinsStorage;
 	private List<Product> userInventory;
 	
 	private User() {
-		one = Denomination._1KR;
-		five = Denomination._5KR;
-		ten = Denomination._10KR;
-		twenty = Denomination._20KR;
-		fifty = Denomination._50KR;
-		oneHundred = Denomination._100KR;
-		fiveHundred = Denomination._500KR;
-		oneThousand = Denomination._1000KR;
-		
 		userInventory = new ArrayList<Product>();
-		userCoinsStorage = new ArrayList<Denomination>();
+		userCoinsStorage = new ArrayList<ObjectEnum>();
 		
 		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(one);
-		userCoinsStorage.add(five);
-		userCoinsStorage.add(five);
-		userCoinsStorage.add(five);
-		userCoinsStorage.add(five);
-		userCoinsStorage.add(five);
 		userCoinsStorage.add(five);
 		userCoinsStorage.add(ten);
-		userCoinsStorage.add(ten);
-		userCoinsStorage.add(ten);
-		userCoinsStorage.add(ten);
-		userCoinsStorage.add(ten);
-		userCoinsStorage.add(ten);
-		userCoinsStorage.add(twenty);
 		userCoinsStorage.add(twenty);
 		userCoinsStorage.add(fifty);
 		userCoinsStorage.add(oneHundred);
@@ -149,30 +114,38 @@ public class User implements UserSignatures {
 	
 	
 	@Override
-	public List<Denomination> getUserCoins() {return this.userCoinsStorage;}
+	public List<ObjectEnum> getUserCoins() {return this.userCoinsStorage;}
 	
 	@Override
 	public int addCoinsTogether() {
 		int coinsToValue = 0;
-		for(Denomination denomination : userCoinsStorage) {
-			coinsToValue += denomination.getValue();
+		for(ObjectEnum denomination : userCoinsStorage) {
+			coinsToValue += denomination.getDenomination().getValue();
 		}
 		return coinsToValue;	
 	}
 	
 	@Override
-	public void addCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
-		for(Denomination denomination : coins) {
+	public void addCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException {
+		for(ObjectEnum denomination : coins) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
 			else {userCoinsStorage.add(denomination);}
 		}
 	}
 	
 	@Override
-	public void removeCoinsCollection(List<Denomination> coins) throws IllegalArgumentException {
-		for(Denomination denomination : coins) {
-			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			else {userCoinsStorage.forEach(c->c.equals(denomination));
+	public void removeCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException {
+		for(ObjectEnum denomination : coins) {
+			if(denomination.equals(null)) {throw new IllegalArgumentException("one of the coins is null");}
+			switch (denomination.getDenomination()) {
+				case _1KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
+				case _5KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
+				case _10KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
+				case _20KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
+				case _50KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
+				case _100KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
+				case _500KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
+				case _1000KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
 			}
 		}
 	}

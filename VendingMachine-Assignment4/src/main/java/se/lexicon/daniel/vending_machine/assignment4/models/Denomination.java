@@ -11,14 +11,19 @@ public enum Denomination {
 	_1000KR(1000);
 	
 	private int totalValue;
-	
-	private Denomination(int value) { // give the enum the value to the left
-		this.totalValue = value;
+	private int totalAmount = 1;
+
+	private Denomination(int value) {
+		this.totalValue = totalAmount * value;
 	}
 	
-	public int getValue() { // give the left value of the enum
-		return this.totalValue;
-	}
+	public int getValue() {return this.totalValue;}
+	
+	public int getAmount() {return totalAmount;}
+
+	public void addAmount(int amount) {this.totalAmount += amount;}
+	
+	public void subtractAmount(int amount) {this.totalAmount -= amount;}
 
 	public String StringBuilder() {
 		StringBuilder sb = new StringBuilder();
@@ -26,6 +31,9 @@ public enum Denomination {
 		
 		sb.append(" [Coin] = ");
 		sb.append(totalValue + " Kr \n");
+		
+		sb.append(" [Amount] = ");
+		sb.append(totalAmount + " st \n");
 		
 		return sb.toString(); 
 	}

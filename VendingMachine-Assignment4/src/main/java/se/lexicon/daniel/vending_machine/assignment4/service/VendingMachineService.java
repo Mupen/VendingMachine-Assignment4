@@ -12,6 +12,7 @@ import se.lexicon.daniel.vending_machine.assignment4.models.ChewingGum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
 import se.lexicon.daniel.vending_machine.assignment4.models.Drink;
 import se.lexicon.daniel.vending_machine.assignment4.models.Food;
+import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 import se.lexicon.daniel.vending_machine.assignment4.utils.KeyboardInput;
 
@@ -20,14 +21,14 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	private static final VendingMachineServiceSignatures vendingMachineServiceInstance = new VendingMachineService();
 	public static VendingMachineServiceSignatures getVendingMachineService() {return vendingMachineServiceInstance;}
 
-	private List<Denomination> inBetweenCoinsStorage;
+	private List<ObjectEnum> inBetweenCoinsStorage;
 	private UserSignatures userInstance;
 	private VendingMachineSignatures vendingMachineInstance;
 
 	VendingMachineService() {
 		userInstance = User.getUserInstance();
 		vendingMachineInstance = VendingMachine.getVendingMachineInstance();
-		inBetweenCoinsStorage = new ArrayList<Denomination>();
+		inBetweenCoinsStorage = new ArrayList<ObjectEnum>();
 	}
 	
 	@Override
@@ -62,8 +63,8 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	@Override
 	public int getInBetweenCoinsStorageCoinsValue() {
 		int coinsToValue = 0;
-		for(Denomination denomination : inBetweenCoinsStorage) {
-			coinsToValue += denomination.getValue();
+		for(ObjectEnum denomination : inBetweenCoinsStorage) {
+			coinsToValue += denomination.getDenomination().getValue();
 		}
 		return coinsToValue;	
 	}
@@ -71,26 +72,26 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	
 	
 	@Override
-	public List<Denomination> getAllVendingMachinenCoins() {return vendingMachineInstance.getVendingMachineCoins();}
+	public List<ObjectEnum> getAllVendingMachinenCoins() {return vendingMachineInstance.getVendingMachineCoins();}
 	
 	@Override
-	public List<Denomination> getAllUsersCoins() {return userInstance.getUserCoins();}
+	public List<ObjectEnum> getAllUsersCoins() {return userInstance.getUserCoins();}
 	
 	@Override
-	public List<Denomination> getInBetweenCoinsStorageCoins() {return this.inBetweenCoinsStorage;}
+	public List<ObjectEnum> getInBetweenCoinsStorageCoins() {return this.inBetweenCoinsStorage;}
 	
 	
 	
 	
 	@Override
-	public void addCoinsToUser(List<Denomination> coins) {userInstance.addCoinsCollection(coins);}
+	public void addCoinsToUser(List<ObjectEnum> coins) {userInstance.addCoinsCollection(coins);}
 	
 	@Override
-	public void addCoinsToVendingMachinen(List<Denomination> coins) {vendingMachineInstance.addCoinsCollection(coins);}
+	public void addCoinsToVendingMachinen(List<ObjectEnum> coins) {vendingMachineInstance.addCoinsCollection(coins);}
 	
 	@Override
-	public void addCoinsToInBetweenStorage(List<Denomination> coins) throws IllegalArgumentException {
-		for(Denomination denomination : coins) {
+	public void addCoinsToInBetweenStorage(List<ObjectEnum> coins) throws IllegalArgumentException {
+		for(ObjectEnum denomination : coins) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
 			else {inBetweenCoinsStorage.add(denomination);}
 		}
@@ -98,14 +99,14 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	
 	
 	@Override
-	public void removeCoinsFromUser(List<Denomination> coins) {userInstance.removeCoinsCollection(coins);}
+	public void removeCoinsFromUser(List<ObjectEnum> coins) {userInstance.removeCoinsCollection(coins);}
 
 	@Override
-	public void removeCoinsFromVendingMachinen(List<Denomination> coins) {vendingMachineInstance.removeCoinsCollection(coins);}
+	public void removeCoinsFromVendingMachinen(List<ObjectEnum> coins) {vendingMachineInstance.removeCoinsCollection(coins);}
 	
 	@Override
-	public void removeCoinsFromInBetweenStorage(List<Denomination> coins) {
-		for(Denomination denomination : coins) {
+	public void removeCoinsFromInBetweenStorage(List<ObjectEnum> coins) {
+		for(ObjectEnum denomination : coins) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
 			else {
 				this.inBetweenCoinsStorage.removeIf(c->c.equals(denomination));

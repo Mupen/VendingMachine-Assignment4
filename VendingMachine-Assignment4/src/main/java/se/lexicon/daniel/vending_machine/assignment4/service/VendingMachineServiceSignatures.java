@@ -3,6 +3,7 @@ package se.lexicon.daniel.vending_machine.assignment4.service;
 import java.util.List;
 
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
+import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 
 public interface VendingMachineServiceSignatures {
@@ -20,17 +21,17 @@ public interface VendingMachineServiceSignatures {
 	public int getVendingMachinensCoinsValue();
 	public int getInBetweenCoinsStorageCoinsValue();
 	
-	public List<Denomination> getAllVendingMachinenCoins();
-	public List<Denomination> getAllUsersCoins();
-	public List<Denomination> getInBetweenCoinsStorageCoins();
+	public List<ObjectEnum> getAllVendingMachinenCoins();
+	public List<ObjectEnum> getAllUsersCoins();
+	public List<ObjectEnum> getInBetweenCoinsStorageCoins();
 	
-	public void addCoinsToUser(List<Denomination> coins);
-	public void addCoinsToVendingMachinen(List<Denomination> coins);
-	public void addCoinsToInBetweenStorage(List<Denomination> coins);
+	public void addCoinsToUser(List<ObjectEnum> coins);
+	public void addCoinsToVendingMachinen(List<ObjectEnum> coins);
+	public void addCoinsToInBetweenStorage(List<ObjectEnum> coins);
 	
-	public void removeCoinsFromUser(List<Denomination> coins);
-	public void removeCoinsFromVendingMachinen(List<Denomination> coins);
-	public void removeCoinsFromInBetweenStorage(List<Denomination> coins);
+	public void removeCoinsFromUser(List<ObjectEnum> coins);
+	public void removeCoinsFromVendingMachinen(List<ObjectEnum> coins);
+	public void removeCoinsFromInBetweenStorage(List<ObjectEnum> coins);
 	
 	
 }
