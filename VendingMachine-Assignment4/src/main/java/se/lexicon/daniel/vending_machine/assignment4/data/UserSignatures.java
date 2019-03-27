@@ -20,8 +20,11 @@ public interface UserSignatures {
 	// Coins
 	public List<ObjectEnum> getUserCoins();
 	public int addCoinsTogether();
-	public void addCoinsCollection(List<ObjectEnum> coins);
-	public void removeCoinsCollection(List<ObjectEnum> coins);
+	public void addCoins(ObjectEnum type, int amount);
+	public void removeCoins(ObjectEnum type, int amount);
+	
+	
+	public List<ObjectEnum> findCoinByName(Denomination denomination);
 	
 	
 }

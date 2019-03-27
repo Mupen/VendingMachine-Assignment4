@@ -27,11 +27,11 @@ public interface VendingMachineServiceSignatures {
 	
 	public void addCoinsToUser(List<ObjectEnum> coins);
 	public void addCoinsToVendingMachinen(List<ObjectEnum> coins);
-	public void addCoinsToInBetweenStorage(List<ObjectEnum> coins);
+	public void givenCoinsToVendingMachinen(List<ObjectEnum> coins);
 	
 	public void removeCoinsFromUser(List<ObjectEnum> coins);
 	public void removeCoinsFromVendingMachinen(List<ObjectEnum> coins);
-	public void removeCoinsFromInBetweenStorage(List<ObjectEnum> coins);
+	public void returnCoinsFromVendingMachinen();
 	
 	
 }

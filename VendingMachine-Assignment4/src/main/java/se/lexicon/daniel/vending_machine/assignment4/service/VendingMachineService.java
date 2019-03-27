@@ -45,14 +45,6 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	
 	@Override
 	public void userUseProduct(Product product) {this.userInstance.useProduct(product);}
-
-	@Override
-	public Product userPurchaseProduct(int code) {
-		Product tempProduct = vendingMachineInstance.findProductByCode(code).get();
-		userInstance.addProduct(tempProduct);
-		vendingMachineInstance.removeProduct(tempProduct);
-		return tempProduct;
-	}
 	
 	@Override
 	public int getUsersCoinsValue() {return userInstance.addCoinsTogether();}
@@ -60,17 +52,6 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	@Override
 	public int getVendingMachinensCoinsValue() {return vendingMachineInstance.addCoinsTogether();}	
 
-	@Override
-	public int getInBetweenCoinsStorageCoinsValue() {
-		int coinsToValue = 0;
-		for(ObjectEnum denomination : inBetweenCoinsStorage) {
-			coinsToValue += denomination.getDenomination().getValue();
-		}
-		return coinsToValue;	
-	}
-
-	
-	
 	@Override
 	public List<ObjectEnum> getAllVendingMachinenCoins() {return vendingMachineInstance.getVendingMachineCoins();}
 	
@@ -80,23 +61,11 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	@Override
 	public List<ObjectEnum> getInBetweenCoinsStorageCoins() {return this.inBetweenCoinsStorage;}
 	
-	
-	
-	
 	@Override
 	public void addCoinsToUser(List<ObjectEnum> coins) {userInstance.addCoinsCollection(coins);}
 	
 	@Override
 	public void addCoinsToVendingMachinen(List<ObjectEnum> coins) {vendingMachineInstance.addCoinsCollection(coins);}
-	
-	@Override
-	public void addCoinsToInBetweenStorage(List<ObjectEnum> coins) throws IllegalArgumentException {
-		for(ObjectEnum denomination : coins) {
-			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			else {inBetweenCoinsStorage.add(denomination);}
-		}
-	}
-	
 	
 	@Override
 	public void removeCoinsFromUser(List<ObjectEnum> coins) {userInstance.removeCoinsCollection(coins);}
@@ -105,17 +74,35 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	public void removeCoinsFromVendingMachinen(List<ObjectEnum> coins) {vendingMachineInstance.removeCoinsCollection(coins);}
 	
 	@Override
-	public void removeCoinsFromInBetweenStorage(List<ObjectEnum> coins) {
-		for(ObjectEnum denomination : coins) {
-			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			else {
-				this.inBetweenCoinsStorage.removeIf(c->c.equals(denomination));
-			}
-		}
+	public Product userPurchaseProduct(int code) {
+		Product tempProduct = vendingMachineInstance.findProductByCode(code).get();
+		userInstance.addProduct(tempProduct);
+		vendingMachineInstance.removeProduct(tempProduct);
+		return tempProduct;
 	}
 	
-
-
-
-
+	@Override
+	public int getInBetweenCoinsStorageCoinsValue() {
+		int coinsToValue = 0;
+		for(ObjectEnum denomination : inBetweenCoinsStorage) {
+			coinsToValue += denomination.getDenomination().getValue();
+		}
+		return coinsToValue;	
+	}
+	
+	@Override
+	public void givenCoinsToVendingMachinen(List<ObjectEnum> coins) throws IllegalArgumentException {
+		for(ObjectEnum denomination : coins) {
+			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
+			else {userInstance.findCoinByName(denomination.getDenomination()).get(0).subAmount(denomination.getAmount());}
+		}
+		vendingMachineInstance.addCoinsCollection(coins);
+	}
+	
+	public void returnCoinsFromVendingMachinen() {
+		for(ObjectEnum denomination : inBetweenCoinsStorage) {
+			if(denomination.equals(null)) {throw new IllegalArgumentException("one of the coins is null");}
+			vendingMachineInstance.findCoinByName(denomination.getDenomination()).get(0).subAmount(denomination.getAmount());
+		}
+	}
 }

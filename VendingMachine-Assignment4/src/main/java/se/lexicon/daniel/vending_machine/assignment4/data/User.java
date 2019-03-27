@@ -34,7 +34,6 @@ public class User implements UserSignatures {
 	private User() {
 		userInventory = new ArrayList<Product>();
 		userCoinsStorage = new ArrayList<ObjectEnum>();
-		
 		userCoinsStorage.add(one);
 		userCoinsStorage.add(five);
 		userCoinsStorage.add(ten);
@@ -43,7 +42,6 @@ public class User implements UserSignatures {
 		userCoinsStorage.add(oneHundred);
 		userCoinsStorage.add(fiveHundred);
 		userCoinsStorage.add(oneThousand);
-		
 		userInventory.add(new Drink("Coca Cola Zero", 1, 12, 33, true, "Sodium citrate", "Can", 360));
 	}
 	
@@ -101,6 +99,13 @@ public class User implements UserSignatures {
 	}
 	
 	@Override
+	public List<ObjectEnum> findCoinByName(Denomination denomination){
+		return userCoinsStorage.stream()
+				.filter(c -> c.getDenomination().equals(denomination))
+				.collect(Collectors.toList());
+	}
+	
+	@Override
 	public List<Product> findAllProducts() {
 		List<Product> objectList = new ArrayList<Product>();
 		for(Product productObject : userInventory) {
@@ -126,27 +131,30 @@ public class User implements UserSignatures {
 	}
 	
 	@Override
-	public void addCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException {
-		for(ObjectEnum denomination : coins) {
+	public void addCoins(ObjectEnum type, int amount) throws IllegalArgumentException {
+		for(ObjectEnum denomination : type) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			else {userCoinsStorage.add(denomination);}
+			findCoinByName(denomination.getDenomination()).get(0).addAmount(denomination.getAmount());
 		}
 	}
 	
 	@Override
-	public void removeCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException {
-		for(ObjectEnum denomination : coins) {
-			if(denomination.equals(null)) {throw new IllegalArgumentException("one of the coins is null");}
-			switch (denomination.getDenomination()) {
-				case _1KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
-				case _5KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
-				case _10KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
-				case _20KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
-				case _50KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
-				case _100KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
-				case _500KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
-				case _1000KR: userCoinsStorage.stream().filter(c->c.equals(denomination)).forEach(c->c.getDenomination().subtractAmount(denomination.getDenomination().getValue())); break;
-			}
+	public void removeCoins(ObjectEnum type, int amount) throws IllegalArgumentException {
+		if(type.equals(null)) {throw new IllegalArgumentException("one of the coins is null");}
+
+		System.out.println("Test 202" + type.getDenomination().toString());
+
+		switch(type.getDenomination().getValue()) {
+		case 1: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
+		case 5: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
+		case 10: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
+		case 20: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
+		case 50: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
+		case 100: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
+		case 500: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
+		case 1000: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
+		
+		System.out.println("Test 202" + type.getDenomination().toString());
 		}
 	}
 }

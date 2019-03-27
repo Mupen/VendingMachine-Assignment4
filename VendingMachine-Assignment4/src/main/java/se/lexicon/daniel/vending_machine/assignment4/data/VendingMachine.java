@@ -2,6 +2,7 @@ package se.lexicon.daniel.vending_machine.assignment4.data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import se.lexicon.daniel.vending_machine.assignment4.models.ChewingGum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
@@ -165,7 +166,12 @@ public class VendingMachine implements VendingMachineSignatures {
 	}
 	
 	
-	
+	@Override
+	public List<ObjectEnum> findCoinByName(Denomination denomination){
+		return vendingMachineCoinsStorage.stream()
+				.filter(c -> c.getDenomination().equals(denomination))
+				.collect(Collectors.toList());
+	}
 	
 	
 	
@@ -185,17 +191,19 @@ public class VendingMachine implements VendingMachineSignatures {
 	
 	@Override
 	public void addCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException {
+		coins.stream().filter(c->c.getDenomination().getValue() == 1).forEach(c->c.subAmount(1));
+		
 		for(ObjectEnum denomination : coins) {
 			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			else {vendingMachineCoinsStorage.add(denomination);}
+			else {findCoinByName(denomination.getDenomination()).get(0).addAmount(denomination.getAmount());}
 		}
 	}
 	
 	@Override
-	public void removeCoinsCollection(List<ObjectEnum> coins) {
+	public void removeCoinsCollection(List<ObjectEnum> coins) throws IllegalArgumentException {
 		for(ObjectEnum denomination : coins) {
-			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			this.vendingMachineCoinsStorage.removeIf(c->c.equals(denomination));
+			if(denomination.equals(null)) {throw new IllegalArgumentException("one of the coins is null");}
+			findCoinByName(denomination.getDenomination()).get(0).subAmount(denomination.getAmount());
 		}
 	}
 	
