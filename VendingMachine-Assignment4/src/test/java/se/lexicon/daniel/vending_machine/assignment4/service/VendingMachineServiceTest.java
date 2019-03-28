@@ -18,6 +18,8 @@ import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachineSignatur
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
 import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 
+
+
 public class VendingMachineServiceTest {
 	
 	//This is what we are going to test
@@ -28,158 +30,221 @@ public class VendingMachineServiceTest {
 	// List ObjectEnum
 	private List<ObjectEnum> tempList1;
 	private List<ObjectEnum> tempList2;
-	int value1 = 0;
-	int value2 = 0;
-	int value3 = 0;
-	int value4 = 0;
 	
-	ObjectEnum one = new ObjectEnum(Denomination._1KR);
-	ObjectEnum five = new ObjectEnum(Denomination._5KR);
-	ObjectEnum ten = new ObjectEnum(Denomination._10KR);
-	ObjectEnum twenty = new ObjectEnum(Denomination._20KR);
-	ObjectEnum fifty = new ObjectEnum(Denomination._50KR);
-	ObjectEnum oneHundred = new ObjectEnum(Denomination._100KR);
-	ObjectEnum fiveHundred = new ObjectEnum(Denomination._500KR);
-	ObjectEnum oneThousand = new ObjectEnum(Denomination._1000KR);
+	ObjectEnum one;
+	ObjectEnum five;
+	ObjectEnum ten;
+	ObjectEnum twenty;
+	ObjectEnum fifty;
+	ObjectEnum oneHundred;
+	ObjectEnum fiveHundred;
+	ObjectEnum oneThousand;
+
 	//Runs BEFORE each test
 	@Before
 	public void init() {
 		this.tempList1 = new ArrayList<ObjectEnum>();
-		tempList1.add(one);
-		tempList1.add(five);
-		tempList1.add(ten);
-		tempList1.add(twenty);
-		tempList1.add(fifty);
-		tempList1.add(oneHundred);
-		tempList1.add(fiveHundred);
-		tempList1.add(oneThousand);
-		
 		this.tempList2 = new ArrayList<ObjectEnum>();
-		tempList2.add(one);
-		tempList2.add(five);
-		tempList2.add(ten);
-		tempList2.add(twenty);
-		tempList2.add(fifty);
-		tempList2.add(oneHundred);
-		tempList2.add(fiveHundred);
-		tempList2.add(oneThousand);
+		
+		one = new ObjectEnum(Denomination._1KR);
+		five = new ObjectEnum(Denomination._5KR);
+		ten = new ObjectEnum(Denomination._10KR);
+		twenty = new ObjectEnum(Denomination._20KR);
+		fifty = new ObjectEnum(Denomination._50KR);
+		oneHundred = new ObjectEnum(Denomination._100KR);
+		fiveHundred = new ObjectEnum(Denomination._500KR);
+		oneThousand = new ObjectEnum(Denomination._1000KR);
+		
 	}
 	
 	@After
 	public void tearDown() {
 		tempList1.clear();
 		tempList2.clear();
-		value1 = 0;
-		value2 = 0;
-		value3 = 0;
-		value4 = 0;
 	}
 	
 	@Test
 	public void test_addCoinsToUser() {
+		assertEquals(1755, serviceInstance.getUsersCoinsValue());
 		
-		// Check if it is no coins in it
-		for(ObjectEnum denomination : tempList1) {value1 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		assertEquals(value1, serviceInstance.getUsersCoinsValue());
-		System.out.println(value1 + " and " + serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(one, 10);
+		assertEquals(1765, serviceInstance.getUsersCoinsValue());
+		serviceInstance.removeCoinsFromUser(one, 10);
 		
-		serviceInstance.addCoinsToUser(tempList1);
-		assertNotEquals(value1, serviceInstance.getUsersCoinsValue());
-		System.out.println(value1 + " and " + serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(five, 5);
+		assertEquals(1780, serviceInstance.getUsersCoinsValue());
+		serviceInstance.removeCoinsFromUser(five, 5);
 		
+		serviceInstance.addCoinsToUser(ten, 5);
+		assertEquals(1805, serviceInstance.getUsersCoinsValue());
+		serviceInstance.removeCoinsFromUser(ten, 5);
 		
-		assertEquals(value1, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(twenty, 1);
+		assertEquals(1775, serviceInstance.getUsersCoinsValue());
+		serviceInstance.removeCoinsFromUser(twenty, 1);
 		
-		tempList1.remove(oneHundred);
-
+		serviceInstance.addCoinsToUser(fifty, 1);
+		assertEquals(1805, serviceInstance.getUsersCoinsValue());
+		serviceInstance.removeCoinsFromUser(fifty, 1);
 		
-		tempList1.addAll(serviceInstance.getAllUsersCoins());
+		serviceInstance.addCoinsToUser(oneHundred, 1);
+		assertEquals(1855, serviceInstance.getUsersCoinsValue());
+		serviceInstance.removeCoinsFromUser(oneHundred, 1);
 		
-		// Check if the are same list of coins in it
-		assertEquals(serviceInstance.getAllUsersCoins(), tempList1);
+		serviceInstance.addCoinsToUser(fiveHundred, 1);
+		assertEquals(2255, serviceInstance.getUsersCoinsValue());
+		serviceInstance.removeCoinsFromUser(fiveHundred, 1);
 		
+		serviceInstance.addCoinsToUser(oneThousand, 1);
+		assertEquals(2755, serviceInstance.getUsersCoinsValue());
+		serviceInstance.removeCoinsFromUser(oneThousand, 1);
+		
+		assertEquals(1755, serviceInstance.getUsersCoinsValue());
 	}
+	
 	
 	@Test
 	public void test_addCoinsToVendingMachinen() {
+		assertEquals(27030, serviceInstance.getVendingMachinensCoinsValue());
 		
+		serviceInstance.addCoinsToVendingMachinen(one, 80);
+		assertEquals(27110, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.removeCoinsFromVendingMachinen(one, 80);
 		
-		// Check if it is no coins in it
-		assertNotEquals(tempList1, serviceInstance.getAllVendingMachinenCoins());
+		serviceInstance.addCoinsToVendingMachinen(five, 70);
+		assertEquals(27380, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.removeCoinsFromVendingMachinen(five, 70);
 		
-		tempList1.add(oneHundred);
-		serviceInstance.addCoinsToVendingMachinen(tempList1);
-		tempList1.remove(oneHundred);
+		serviceInstance.addCoinsToVendingMachinen(ten, 60);
+		assertEquals(27630, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.removeCoinsFromVendingMachinen(ten, 60);
 		
-		tempList1.addAll(serviceInstance.getAllVendingMachinenCoins());
+		serviceInstance.addCoinsToVendingMachinen(twenty, 50);
+		assertEquals(28030, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.removeCoinsFromVendingMachinen(twenty, 50);
 		
-		// Check if the are same list of coins in it
-		assertEquals(serviceInstance.getAllVendingMachinenCoins(), tempList1);
+		serviceInstance.addCoinsToVendingMachinen(fifty, 40);
+		assertEquals(29030, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.removeCoinsFromVendingMachinen(fifty, 40);
 		
+		serviceInstance.addCoinsToVendingMachinen(oneHundred, 30);
+		assertEquals(30030, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.removeCoinsFromVendingMachinen(oneHundred, 30);
+		
+		serviceInstance.addCoinsToVendingMachinen(fiveHundred, 20);
+		assertEquals(37030, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.removeCoinsFromVendingMachinen(fiveHundred, 20);
+		
+		serviceInstance.addCoinsToVendingMachinen(oneThousand, 10);
+		assertEquals(37030, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.removeCoinsFromVendingMachinen(oneThousand, 10);
+		
+		assertEquals(27030, serviceInstance.getVendingMachinensCoinsValue());
 	}
-	
-	@Test
-	public void test_addCoinsToInBetweenStorage() {
-		
-		// Check if it is no coins in it
-		assertEquals(serviceInstance.getInBetweenCoinsStorageCoins(), tempList1);
-		
-		tempList1.add(oneHundred);
-		serviceInstance.addCoinsToInBetweenStorage(tempList1);
-		
-		// Check if the are same list of coins in it
-		assertEquals(serviceInstance.getInBetweenCoinsStorageCoins(), tempList1);
-		
-	}
-	
+
+
 	@Test
 	public void test_removeCoinsFromUser() {
-		// Same value
-		for(ObjectEnum denomination : serviceInstance.getAllUsersCoins()) {value1 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		for(ObjectEnum denomination : tempList1) {value2 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		assertEquals(value1, value2);
 		
-		// remove all coins from user
-		serviceInstance.removeCoinsFromUser(tempList1);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		int ExpectedValue = 1715;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
 		
-		// Not same value 
-		for(ObjectEnum denomination : serviceInstance.getAllUsersCoins()) {value3 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		for(ObjectEnum denomination : tempList1) {value4 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		assertNotEquals(value3, value4);
+		serviceInstance.removeCoinsFromUser(one, 10);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		ExpectedValue = 1705;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		
+		serviceInstance.removeCoinsFromUser(five, 5);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		ExpectedValue = 1680;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		
+		serviceInstance.removeCoinsFromUser(ten, 1);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		ExpectedValue = 1670;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		
+		serviceInstance.removeCoinsFromUser(twenty, 1);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		ExpectedValue = 1650;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		
+		serviceInstance.removeCoinsFromUser(fifty, 1);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		ExpectedValue = 1600;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		
+		serviceInstance.removeCoinsFromUser(oneHundred, 1);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		ExpectedValue = 1500;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		
+		serviceInstance.removeCoinsFromUser(fiveHundred, 1);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		ExpectedValue = 1000;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		
+		serviceInstance.removeCoinsFromUser(oneThousand, 1);
+		System.out.println(serviceInstance.getUsersCoinsValue());
+		ExpectedValue = 0;
+		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
 	}
 	
+	/*	
 	@Test
 	public void test_removeCoinsFromVendingMachinen() {
-		// Same value
-		for(ObjectEnum denomination : serviceInstance.getAllVendingMachinenCoins()) {value1 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		for(ObjectEnum denomination : tempList2) {value2 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		assertEquals(value1, value2);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		int ExpectedValue = 27030;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
 		
-		// remove all coins from user
-		serviceInstance.removeCoinsFromVendingMachinen(tempList1);
+		serviceInstance.removeCoinsFromVendingMachinen(one, 80);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		ExpectedValue = 26950;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
 		
-		// Not same value 
-		for(ObjectEnum denomination : serviceInstance.getAllVendingMachinenCoins()) {value3 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		for(ObjectEnum denomination : tempList1) {value4 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		assertNotEquals(value3, value4);
+		ObjectEnum five = new ObjectEnum(Denomination._5KR);
+		serviceInstance.removeCoinsFromVendingMachinen(five, 70);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		ExpectedValue = 26600;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		
+		ObjectEnum ten = new ObjectEnum(Denomination._10KR);
+		serviceInstance.removeCoinsFromVendingMachinen(ten, 60);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		ExpectedValue = 26000;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		
+		serviceInstance.removeCoinsFromVendingMachinen(twenty, 50);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		ExpectedValue = 25000;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		
+		serviceInstance.removeCoinsFromVendingMachinen(fifty, 40);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		ExpectedValue = 23000;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		
+		serviceInstance.removeCoinsFromVendingMachinen(oneHundred, 30);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		ExpectedValue = 20000;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		
+		serviceInstance.removeCoinsFromVendingMachinen(fiveHundred, 20);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		ExpectedValue = 10000;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		
+		serviceInstance.removeCoinsFromVendingMachinen(oneThousand, 10);
+		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+		ExpectedValue = 0;
+		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
 	}
 	
 	@Test
 	public void test_returnCoinsFromVendingMachinen() {
-		// Same value
-		for(ObjectEnum denomination : serviceInstance.getAllUsersCoins()) {value1 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		for(ObjectEnum denomination : tempList1) {value2 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		// System.out.println(value1 + " and " + value2);
-		assertNotEquals(value1, value2);
 		
-		// remove all coins from user
-		serviceInstance.givenCoinsToVendingMachinen(tempList1);
-		serviceInstance.returnCoinsFromVendingMachinen();
-		
-		// Not same value 
-		for(ObjectEnum denomination : serviceInstance.getAllUsersCoins()) {value3 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		for(ObjectEnum denomination : tempList1) {value4 += (denomination.getDenomination().getValue() * denomination.getAmount());}
-		// System.out.println(value3 + " and " + value4);
-		assertNotEquals(value3, value4);
-	}
+	}*/
+
+	
 }

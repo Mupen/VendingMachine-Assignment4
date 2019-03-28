@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
+import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 import se.lexicon.daniel.vending_machine.assignment4.service.VendingMachineService;
 import se.lexicon.daniel.vending_machine.assignment4.service.VendingMachineServiceSignatures;
@@ -20,6 +21,7 @@ public class ConsoleMenuController {
 	private boolean running;
 	private VendingMachineServiceSignatures serviceInstance;
 	private int userSwitchInput;
+	private int userInputAmount;
 	private List<Denomination> tempCoinPool;
 	
 	public ConsoleMenuController() {
@@ -130,9 +132,9 @@ public class ConsoleMenuController {
 	}
 
 	private void returnChange() {
-		List<Denomination> tempList = serviceInstance.getInBetweenCoinsStorageCoins();
-		serviceInstance.addCoinsToUser(tempList);
-		serviceInstance.removeCoinsFromInBetweenStorage(tempList);
+		List<ObjectEnum> tempList = serviceInstance.getInBetweenCoinsStorageCoins();
+		serviceInstance.addCoinsToUser(type, amount);
+		serviceInstance.returnCoinsFromVendingMachinen();
 	}
 
 	private void purchaseProduct() {
@@ -158,40 +160,42 @@ public class ConsoleMenuController {
 					+ "\n [7]" + Denomination._500KR.toString()
 					+ "\n [8]" + Denomination._1000KR.toString()
 					+ "\n [9] Stop inserting coins");
-			
 			userSwitchInput = KeyboardInput.getInt();
+			System.out.println("\n Amount? \n");
+			userInputAmount = KeyboardInput.getInt();
+			
 			switch (userSwitchInput) {
 				case 1: 
-					serviceInstance.removeCoinFromUser(Denomination._1KR);
-					serviceInstance.addCoinToInBetweenStorage(Denomination._1KR);
+					serviceInstance.removeCoinsFromUser(Denomination._1KR, userInputAmount);
+					serviceInstance.addCoinsToVendingMachinen(Denomination._1KR, userInputAmount);
 					;break;
 				case 2: 
-					serviceInstance.removeCoinFromUser(Denomination._5KR);
-					serviceInstance.addCoinToInBetweenStorage(Denomination._5KR);
+					serviceInstance.removeCoinsFromUser(Denomination._5KR, userInputAmount);
+					serviceInstance.addCoinsToVendingMachinen(Denomination._5KR, userInputAmount);
 					;break;
 				case 3: 
-					serviceInstance.removeCoinFromUser(Denomination._10KR);
-					serviceInstance.addCoinToInBetweenStorage(Denomination._10KR);
+					serviceInstance.removeCoinsFromUser(Denomination._10KR, userInputAmount);
+					serviceInstance.addCoinsToVendingMachinen(Denomination._10KR, userInputAmount);
 					break; 
 				case 4: 
-					serviceInstance.removeCoinFromUser(Denomination._20KR);
-					serviceInstance.addCoinToInBetweenStorage(Denomination._20KR);
+					serviceInstance.removeCoinsFromUser(Denomination._20KR, userInputAmount);
+					serviceInstance.addCoinsToVendingMachinen(Denomination._20KR, userInputAmount);
 					break; 
 				case 5: 
-					serviceInstance.removeCoinFromUser(Denomination._50KR);
-					serviceInstance.addCoinToInBetweenStorage(Denomination._50KR);
+					serviceInstance.removeCoinsFromUser(Denomination._50KR, userInputAmount);
+					serviceInstance.addCoinsToVendingMachinen(Denomination._50KR, userInputAmount);
 					break;  
 				case 6: 
-					serviceInstance.removeCoinFromUser(Denomination._100KR);
-					serviceInstance.addCoinToInBetweenStorage(Denomination._100KR);
+					serviceInstance.removeCoinsFromUser(Denomination._100KR, userInputAmount);
+					serviceInstance.addCoinsToVendingMachinen(Denomination._100KR, userInputAmount);
 					break;   
 				case 7: 
-					serviceInstance.removeCoinFromUser(Denomination._500KR);
-					serviceInstance.addCoinToInBetweenStorage(Denomination._500KR);
+					serviceInstance.removeCoinsFromUser(Denomination._500KR, userInputAmount);
+					serviceInstance.addCoinsToVendingMachinen(Denomination._500KR, userInputAmount);
 					break;   
 				case 8: 
-					serviceInstance.removeCoinFromUser(Denomination._1000KR);
-					serviceInstance.addCoinToInBetweenStorage(Denomination._1000KR);
+					serviceInstance.removeCoinsFromUser(Denomination._1000KR, userInputAmount);
+					serviceInstance.addCoinsToVendingMachinen(Denomination._1000KR, userInputAmount);
 					break;   
 				case 9: stopLoop = true; break;
 				default: System.out.println("Wrong input");

@@ -24,14 +24,15 @@ public interface VendingMachineServiceSignatures {
 	public List<ObjectEnum> getAllVendingMachinenCoins();
 	public List<ObjectEnum> getAllUsersCoins();
 	public List<ObjectEnum> getInBetweenCoinsStorageCoins();
+
+	public void givenCoinsToVendingMachinen(ObjectEnum type, int amount);
 	
-	public void addCoinsToUser(List<ObjectEnum> coins);
-	public void addCoinsToVendingMachinen(List<ObjectEnum> coins);
-	public void givenCoinsToVendingMachinen(List<ObjectEnum> coins);
-	
-	public void removeCoinsFromUser(List<ObjectEnum> coins);
-	public void removeCoinsFromVendingMachinen(List<ObjectEnum> coins);
+	public void removeCoinsFromUser(ObjectEnum type, int amount);
+	public void removeCoinsFromVendingMachinen(ObjectEnum type, int amount);
 	public void returnCoinsFromVendingMachinen();
 	
+	public void addCoinToInBetweenStorage(ObjectEnum type, int amount);
+	public void addCoinsToUser(ObjectEnum type, int amount);
+	public void addCoinsToVendingMachinen(ObjectEnum type, int amount);
 	
 }

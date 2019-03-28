@@ -20,11 +20,9 @@ public interface UserSignatures {
 	// Coins
 	public List<ObjectEnum> getUserCoins();
 	public int addCoinsTogether();
-	public void addCoins(ObjectEnum type, int amount);
 	public void removeCoins(ObjectEnum type, int amount);
 	
-	
-	public List<ObjectEnum> findCoinByName(Denomination denomination);
+	public void addCoins(ObjectEnum type, int amount) throws IllegalArgumentException;
 	
 	
 }

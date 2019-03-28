@@ -62,16 +62,16 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	public List<ObjectEnum> getInBetweenCoinsStorageCoins() {return this.inBetweenCoinsStorage;}
 	
 	@Override
-	public void addCoinsToUser(List<ObjectEnum> coins) {userInstance.addCoinsCollection(coins);}
+	public void addCoinsToUser(ObjectEnum type, int amount) {userInstance.addCoins(type, amount);}
 	
 	@Override
-	public void addCoinsToVendingMachinen(List<ObjectEnum> coins) {vendingMachineInstance.addCoinsCollection(coins);}
+	public void addCoinsToVendingMachinen(ObjectEnum type, int amount) {vendingMachineInstance.addCoins(type, amount);}
 	
 	@Override
-	public void removeCoinsFromUser(List<ObjectEnum> coins) {userInstance.removeCoinsCollection(coins);}
+	public void removeCoinsFromUser(ObjectEnum type, int amount) {userInstance.removeCoins(type, amount);}
 
 	@Override
-	public void removeCoinsFromVendingMachinen(List<ObjectEnum> coins) {vendingMachineInstance.removeCoinsCollection(coins);}
+	public void removeCoinsFromVendingMachinen(ObjectEnum type, int amount) {vendingMachineInstance.removeCoins(type, amount);}
 	
 	@Override
 	public Product userPurchaseProduct(int code) {
@@ -90,19 +90,20 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 		return coinsToValue;	
 	}
 	
-	@Override
-	public void givenCoinsToVendingMachinen(List<ObjectEnum> coins) throws IllegalArgumentException {
-		for(ObjectEnum denomination : coins) {
-			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			else {userInstance.findCoinByName(denomination.getDenomination()).get(0).subAmount(denomination.getAmount());}
-		}
-		vendingMachineInstance.addCoinsCollection(coins);
-	}
 	
 	public void returnCoinsFromVendingMachinen() {
-		for(ObjectEnum denomination : inBetweenCoinsStorage) {
-			if(denomination.equals(null)) {throw new IllegalArgumentException("one of the coins is null");}
-			vendingMachineInstance.findCoinByName(denomination.getDenomination()).get(0).subAmount(denomination.getAmount());
-		}
+
+	}
+
+	@Override
+	public void givenCoinsToVendingMachinen(ObjectEnum type, int amount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addCoinToInBetweenStorage(ObjectEnum type, int amount) {
+		// TODO Auto-generated method stub
+		
 	}
 }

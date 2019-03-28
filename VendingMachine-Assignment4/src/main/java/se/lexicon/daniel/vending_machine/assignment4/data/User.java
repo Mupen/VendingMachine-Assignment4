@@ -28,12 +28,14 @@ public class User implements UserSignatures {
 	ObjectEnum oneHundred = new ObjectEnum(Denomination._100KR);
 	ObjectEnum fiveHundred = new ObjectEnum(Denomination._500KR);
 	ObjectEnum oneThousand = new ObjectEnum(Denomination._1000KR);
+	
 	private List<ObjectEnum> userCoinsStorage;
 	private List<Product> userInventory;
 	
 	private User() {
 		userInventory = new ArrayList<Product>();
 		userCoinsStorage = new ArrayList<ObjectEnum>();
+		
 		userCoinsStorage.add(one);
 		userCoinsStorage.add(five);
 		userCoinsStorage.add(ten);
@@ -42,6 +44,22 @@ public class User implements UserSignatures {
 		userCoinsStorage.add(oneHundred);
 		userCoinsStorage.add(fiveHundred);
 		userCoinsStorage.add(oneThousand);
+		
+		System.out.println(addCoinsTogether());
+		
+		for(ObjectEnum coins : userCoinsStorage)
+		{
+		   //Do something
+		   if(coins.equals(one)){one.addAmount(10);}
+		   if(coins.equals(five)){five.addAmount(5);}
+		   if(coins.equals(ten)){ten.addAmount(5);}
+		   if(coins.equals(twenty)){twenty.addAmount(1);}
+		   if(coins.equals(fifty)){fifty.addAmount(1);}
+		   if(coins.equals(oneHundred)){oneHundred.addAmount(1);}
+		   if(coins.equals(fiveHundred)){fiveHundred.addAmount(1);}
+		   if(coins.equals(oneThousand)){oneThousand.addAmount(1);}
+		}
+		
 		userInventory.add(new Drink("Coca Cola Zero", 1, 12, 33, true, "Sodium citrate", "Can", 360));
 	}
 	
@@ -99,13 +117,6 @@ public class User implements UserSignatures {
 	}
 	
 	@Override
-	public List<ObjectEnum> findCoinByName(Denomination denomination){
-		return userCoinsStorage.stream()
-				.filter(c -> c.getDenomination().equals(denomination))
-				.collect(Collectors.toList());
-	}
-	
-	@Override
 	public List<Product> findAllProducts() {
 		List<Product> objectList = new ArrayList<Product>();
 		for(Product productObject : userInventory) {
@@ -116,8 +127,6 @@ public class User implements UserSignatures {
 		return objectList;		
 	}
 	
-	
-	
 	@Override
 	public List<ObjectEnum> getUserCoins() {return this.userCoinsStorage;}
 	
@@ -125,36 +134,34 @@ public class User implements UserSignatures {
 	public int addCoinsTogether() {
 		int coinsToValue = 0;
 		for(ObjectEnum denomination : userCoinsStorage) {
-			coinsToValue += denomination.getDenomination().getValue();
+			coinsToValue += (denomination.getDenomination().getValue() * denomination.getAmount());
 		}
 		return coinsToValue;	
 	}
 	
 	@Override
 	public void addCoins(ObjectEnum type, int amount) throws IllegalArgumentException {
-		for(ObjectEnum denomination : type) {
-			if(denomination == null) {throw new IllegalArgumentException("one of the coins is null");}
-			findCoinByName(denomination.getDenomination()).get(0).addAmount(denomination.getAmount());
+		if(type == null) {throw new IllegalArgumentException("one of the coins is null");}
+		if(amount == 0) {System.out.println("Can't change value with a 0");}
+		else {
+			for(ObjectEnum coins : userCoinsStorage)
+			{
+			   //Do something
+			   if(coins.getDenomination().equals(type.getDenomination())){coins.addAmount(amount);}
+			}
 		}
 	}
 	
 	@Override
 	public void removeCoins(ObjectEnum type, int amount) throws IllegalArgumentException {
-		if(type.equals(null)) {throw new IllegalArgumentException("one of the coins is null");}
-
-		System.out.println("Test 202" + type.getDenomination().toString());
-
-		switch(type.getDenomination().getValue()) {
-		case 1: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
-		case 5: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
-		case 10: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
-		case 20: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
-		case 50: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
-		case 100: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
-		case 500: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
-		case 1000: findCoinByName(type.getDenomination()).get(0).subAmount(amount); break;
-		
-		System.out.println("Test 202" + type.getDenomination().toString());
+		if(type == null) {throw new IllegalArgumentException("one of the coins is null");}
+		if(amount == 0) {System.out.println("Can't change value with a 0");}
+		else {
+			for(ObjectEnum coins : userCoinsStorage)
+			{
+			   //Do something
+			   if(coins.getDenomination().equals(type.getDenomination())){coins.subAmount(amount);}
+			}
 		}
 	}
 }
