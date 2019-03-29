@@ -45,8 +45,6 @@ public class User implements UserSignatures {
 		userCoinsStorage.add(fiveHundred);
 		userCoinsStorage.add(oneThousand);
 		
-		System.out.println(addCoinsTogether());
-		
 		for(ObjectEnum coins : userCoinsStorage)
 		{
 		   //Do something

@@ -63,8 +63,8 @@ public class VendingMachineServiceTest {
 		tempList2.clear();
 	}
 	
-	@Test
-	public void test_addCoinsToUser() {
+	@Test public void test_addCoinsToUser() {
+		
 		assertEquals(1755, serviceInstance.getUsersCoinsValue());
 		
 		serviceInstance.addCoinsToUser(one, 10);
@@ -102,9 +102,8 @@ public class VendingMachineServiceTest {
 		assertEquals(1755, serviceInstance.getUsersCoinsValue());
 	}
 	
-	
-	@Test
-	public void test_addCoinsToVendingMachinen() {
+	@Test public void test_addCoinsToVendingMachinen() {
+		
 		assertEquals(27030, serviceInstance.getVendingMachinensCoinsValue());
 		
 		serviceInstance.addCoinsToVendingMachinen(one, 80);
@@ -142,109 +141,100 @@ public class VendingMachineServiceTest {
 		assertEquals(27030, serviceInstance.getVendingMachinensCoinsValue());
 	}
 
-
-	@Test
-	public void test_removeCoinsFromUser() {
+	@Test public void test_removeCoinsFromUser() {
 		
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		int ExpectedValue = 1715;
+		int ExpectedValue = 1755;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
 		
 		serviceInstance.removeCoinsFromUser(one, 10);
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		ExpectedValue = 1705;
+		ExpectedValue = 1745;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(one, 10);
 		
 		serviceInstance.removeCoinsFromUser(five, 5);
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		ExpectedValue = 1680;
+		ExpectedValue = 1730;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(five, 5);
 		
-		serviceInstance.removeCoinsFromUser(ten, 1);
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		ExpectedValue = 1670;
+		serviceInstance.removeCoinsFromUser(ten, 5);
+		ExpectedValue = 1705;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(ten, 5);
 		
 		serviceInstance.removeCoinsFromUser(twenty, 1);
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		ExpectedValue = 1650;
+		ExpectedValue = 1735;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(twenty, 1);
 		
 		serviceInstance.removeCoinsFromUser(fifty, 1);
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		ExpectedValue = 1600;
+		ExpectedValue = 1705;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(fifty, 1);
 		
 		serviceInstance.removeCoinsFromUser(oneHundred, 1);
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		ExpectedValue = 1500;
+		ExpectedValue = 1655;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(oneHundred, 1);
 		
 		serviceInstance.removeCoinsFromUser(fiveHundred, 1);
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		ExpectedValue = 1000;
+		ExpectedValue = 1255;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(fiveHundred, 1);
 		
 		serviceInstance.removeCoinsFromUser(oneThousand, 1);
-		System.out.println(serviceInstance.getUsersCoinsValue());
-		ExpectedValue = 0;
+		ExpectedValue = 755;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
+		serviceInstance.addCoinsToUser(oneThousand, 1);
 	}
 	
-	/*	
-	@Test
-	public void test_removeCoinsFromVendingMachinen() {
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
+	@Test public void test_removeCoinsFromVendingMachinen() {
+		
 		int ExpectedValue = 27030;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
 		
 		serviceInstance.removeCoinsFromVendingMachinen(one, 80);
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
 		ExpectedValue = 26950;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.addCoinsToVendingMachinen(one, 80);
 		
-		ObjectEnum five = new ObjectEnum(Denomination._5KR);
 		serviceInstance.removeCoinsFromVendingMachinen(five, 70);
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
-		ExpectedValue = 26600;
+		ExpectedValue = 26680;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.addCoinsToVendingMachinen(five, 70);
 		
-		ObjectEnum ten = new ObjectEnum(Denomination._10KR);
 		serviceInstance.removeCoinsFromVendingMachinen(ten, 60);
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
-		ExpectedValue = 26000;
+		ExpectedValue = 26430;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.addCoinsToVendingMachinen(ten, 60);
 		
 		serviceInstance.removeCoinsFromVendingMachinen(twenty, 50);
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
-		ExpectedValue = 25000;
+		ExpectedValue = 26030;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.addCoinsToVendingMachinen(twenty, 50);
 		
 		serviceInstance.removeCoinsFromVendingMachinen(fifty, 40);
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
-		ExpectedValue = 23000;
+		ExpectedValue = 25030;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.addCoinsToVendingMachinen(fifty, 40);
 		
 		serviceInstance.removeCoinsFromVendingMachinen(oneHundred, 30);
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
-		ExpectedValue = 20000;
+		ExpectedValue = 24030;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.addCoinsToVendingMachinen(oneHundred, 30);
 		
 		serviceInstance.removeCoinsFromVendingMachinen(fiveHundred, 20);
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
-		ExpectedValue = 10000;
+		ExpectedValue = 17030;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.addCoinsToVendingMachinen(fiveHundred, 20);
 		
 		serviceInstance.removeCoinsFromVendingMachinen(oneThousand, 10);
-		System.out.println(serviceInstance.getVendingMachinensCoinsValue());
-		ExpectedValue = 0;
+		ExpectedValue = 17030;
 		assertEquals(ExpectedValue, serviceInstance.getVendingMachinensCoinsValue());
+		serviceInstance.addCoinsToVendingMachinen(oneThousand, 10);
+		
 	}
 	
 	@Test
-	public void test_returnCoinsFromVendingMachinen() {
-		
-	}*/
-
+	public void test_returnCoinsFromVendingMachinen() {}
 	
 }

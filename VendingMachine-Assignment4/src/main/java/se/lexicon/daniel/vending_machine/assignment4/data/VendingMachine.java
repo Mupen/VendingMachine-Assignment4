@@ -25,11 +25,13 @@ public class VendingMachine implements VendingMachineSignatures {
 	ObjectEnum fiveHundred = new ObjectEnum(Denomination._500KR);
 	ObjectEnum oneThousand = new ObjectEnum(Denomination._1000KR);
 	
+	private List<ObjectEnum> transnationalBalanceStorage;
 	private List<ObjectEnum> vendingMachineCoinsStorage;
 	private List<Product> vendingMachineInventory;
 	
 	private VendingMachine() {
 		vendingMachineInventory = new ArrayList<Product>();
+		transnationalBalanceStorage = new ArrayList<ObjectEnum>();
 		vendingMachineCoinsStorage = new ArrayList<ObjectEnum>();
 		
 		vendingMachineCoinsStorage.add(one);
@@ -198,12 +200,29 @@ public class VendingMachine implements VendingMachineSignatures {
 		return coinsToValue;	
 	}
 	
+	
+	@Override
+	public void confirmPurchase(int cost) throws IllegalArgumentException {
+		if(cost == 0) {System.out.println("Can't change value with a 0");}
+		else {
+			for(ObjectEnum coins : vendingMachineCoinsStorage)
+			{
+				
+				//Do something
+				if(coins.getDenomination().getValue() <= cost)	{
+					coins.subAmount(1); 
+					cost -= coins.getDenomination().getValue();
+				}
+			}
+		}
+	}
+	
 	@Override
 	public void addCoins(ObjectEnum type, int amount) throws IllegalArgumentException {
 		if(type == null) {throw new IllegalArgumentException("one of the coins is null");}
 		if(amount == 0) {System.out.println("Can't change value with a 0");}
 		else {
-			for(ObjectEnum coins : vendingMachineCoinsStorage)
+			for(ObjectEnum coins : transnationalBalanceStorage)
 			{
 			   //Do something
 			   if(coins.getDenomination().equals(type.getDenomination())){coins.addAmount(amount);}

@@ -21,7 +21,9 @@ public interface VendingMachineSignatures {
 	public int addCoinsTogether();
 	public List<ObjectEnum> findCoinByName(Denomination denomination);
 	
+	public void confirmPurchase(int cost) throws IllegalArgumentException;
 	public void addCoins(ObjectEnum type, int amount) throws IllegalArgumentException;
 	public void removeCoins(ObjectEnum type, int amount) throws IllegalArgumentException;
+	
 
 }
