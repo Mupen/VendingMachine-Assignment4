@@ -1,15 +1,6 @@
 package se.lexicon.daniel.vending_machine.assignment4.controller;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
 import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
 import se.lexicon.daniel.vending_machine.assignment4.models.Product;
@@ -145,13 +136,13 @@ public class ConsoleMenuController {
 	}
 
 	private void purchaseProduct() {
-		// TODO Auto-generated method stub
 		System.out.println("\n Standing in front of the vending machine \n"
 				+ "\n What product do you want to purchase \n"
 				+ "Product code... ");
 		int userInputCode = KeyboardInput.getInt();
 		Product tempProduct = serviceInstance.userPurchaseProduct(userInputCode);
 		// tempCoinPool -= tempProduct.getProductPrice();
+		
 	}
 
 	private void insertCoin() {

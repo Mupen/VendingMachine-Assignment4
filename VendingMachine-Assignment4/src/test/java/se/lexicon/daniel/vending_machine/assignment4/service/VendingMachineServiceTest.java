@@ -1,24 +1,16 @@
 package se.lexicon.daniel.vending_machine.assignment4.service;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import se.lexicon.daniel.vending_machine.assignment4.data.User;
 import se.lexicon.daniel.vending_machine.assignment4.data.UserSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachine;
 import se.lexicon.daniel.vending_machine.assignment4.data.VendingMachineSignatures;
 import se.lexicon.daniel.vending_machine.assignment4.models.Denomination;
 import se.lexicon.daniel.vending_machine.assignment4.models.ObjectEnum;
-
-
 
 public class VendingMachineServiceTest {
 	
@@ -43,9 +35,9 @@ public class VendingMachineServiceTest {
 	//Runs BEFORE each test
 	@Before
 	public void init() {
+		
 		this.tempList1 = new ArrayList<ObjectEnum>();
 		this.tempList2 = new ArrayList<ObjectEnum>();
-		
 		one = new ObjectEnum(Denomination._1KR);
 		five = new ObjectEnum(Denomination._5KR);
 		ten = new ObjectEnum(Denomination._10KR);
@@ -100,6 +92,7 @@ public class VendingMachineServiceTest {
 		serviceInstance.removeCoinsFromUser(oneThousand, 1);
 		
 		assertEquals(1755, serviceInstance.getUsersCoinsValue());
+		
 	}
 	
 	@Test public void test_addCoinsToVendingMachinen() {
@@ -139,6 +132,7 @@ public class VendingMachineServiceTest {
 		serviceInstance.removeCoinsFromVendingMachinen(oneThousand, 10);
 		
 		assertEquals(27030, serviceInstance.getVendingMachinensCoinsValue());
+	
 	}
 
 	@Test public void test_removeCoinsFromUser() {
@@ -185,6 +179,7 @@ public class VendingMachineServiceTest {
 		ExpectedValue = 755;
 		assertEquals(ExpectedValue, serviceInstance.getUsersCoinsValue());
 		serviceInstance.addCoinsToUser(oneThousand, 1);
+		
 	}
 	
 	@Test public void test_removeCoinsFromVendingMachinen() {
@@ -234,7 +229,6 @@ public class VendingMachineServiceTest {
 		
 	}
 	
-	@Test
-	public void test_returnCoinsFromVendingMachinen() {}
+	@Test public void test_returnCoinsFromVendingMachinen() {}
 	
 }
