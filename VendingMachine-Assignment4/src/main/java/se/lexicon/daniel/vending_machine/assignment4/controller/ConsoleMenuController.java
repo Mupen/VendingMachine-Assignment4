@@ -52,7 +52,7 @@ public class ConsoleMenuController {
 		boolean stopLoop = false;
 		while(!stopLoop) {
 			System.out.println("\n You stand in front of a vending machine \n" +
-					" \n [Value Inserted] " + serviceInstance.getInBetweenCoinsStorageCoinsValue() + " kr " +
+					" \n [Value Inserted] " + serviceInstance.getTransnationalBalanceCoinsValue() + " kr " +
 					" \n [Vending Machine] " + serviceInstance.getVendingMachinensCoinsValue() + " kr " +
 					" \n [Wallet] " + serviceInstance.getUsersCoinsValue() + " kr " + "\n" +
 					" \n [1] Examine the product in the machine. \n" +
@@ -159,41 +159,55 @@ public class ConsoleMenuController {
 					+ "\n [8]" + Denomination._1000KR.toString()
 					+ "\n [9] Stop inserting coins");
 			userSwitchInput = KeyboardInput.getInt();
-			System.out.println("\n Amount? \n");
-			userInputAmount = KeyboardInput.getInt();
 			
 			switch (userSwitchInput) {
 				case 1: 
+					System.out.println("\n Amount? \n");
+					userInputAmount = KeyboardInput.getInt();
 					serviceInstance.removeCoinsFromUser(one, userInputAmount);
-					serviceInstance.addCoinsToVendingMachinen(one, userInputAmount);
+					serviceInstance.addCoinsToTransnationalBalance(one, userInputAmount);
 					;break;
 				case 2: 
+					System.out.println("\n Amount? \n");
+					userInputAmount = KeyboardInput.getInt();
 					serviceInstance.removeCoinsFromUser(five, userInputAmount);
-					serviceInstance.addCoinsToVendingMachinen(five, userInputAmount);
+					serviceInstance.addCoinsToTransnationalBalance(five, userInputAmount);
 					;break;
 				case 3: 
+					System.out.println("\n Amount? \n");
+					userInputAmount = KeyboardInput.getInt();
 					serviceInstance.removeCoinsFromUser(ten, userInputAmount);
-					serviceInstance.addCoinsToVendingMachinen(ten, userInputAmount);
+					serviceInstance.addCoinsToTransnationalBalance(ten, userInputAmount);
 					break; 
 				case 4: 
+					System.out.println("\n Amount? \n");
+					userInputAmount = KeyboardInput.getInt();
 					serviceInstance.removeCoinsFromUser(twenty, userInputAmount);
-					serviceInstance.addCoinsToVendingMachinen(twenty, userInputAmount);
+					serviceInstance.addCoinsToTransnationalBalance(twenty, userInputAmount);
 					break; 
 				case 5: 
+					System.out.println("\n Amount? \n");
+					userInputAmount = KeyboardInput.getInt();
 					serviceInstance.removeCoinsFromUser(fifty, userInputAmount);
-					serviceInstance.addCoinsToVendingMachinen(fifty, userInputAmount);
+					serviceInstance.addCoinsToTransnationalBalance(fifty, userInputAmount);
 					break;  
 				case 6: 
+					System.out.println("\n Amount? \n");
+					userInputAmount = KeyboardInput.getInt();
 					serviceInstance.removeCoinsFromUser(oneHundred, userInputAmount);
-					serviceInstance.addCoinsToVendingMachinen(oneHundred, userInputAmount);
+					serviceInstance.addCoinsToTransnationalBalance(oneHundred, userInputAmount);
 					break;   
 				case 7: 
+					System.out.println("\n Amount? \n");
+					userInputAmount = KeyboardInput.getInt();
 					serviceInstance.removeCoinsFromUser(fiveHundred, userInputAmount);
-					serviceInstance.addCoinsToVendingMachinen(fiveHundred, userInputAmount);
+					serviceInstance.addCoinsToTransnationalBalance(fiveHundred, userInputAmount);
 					break;   
 				case 8: 
+					System.out.println("\n Amount? \n");
+					userInputAmount = KeyboardInput.getInt();
 					serviceInstance.removeCoinsFromUser(oneThousand, userInputAmount);
-					serviceInstance.addCoinsToVendingMachinen(oneThousand, userInputAmount);
+					serviceInstance.addCoinsToTransnationalBalance(oneThousand, userInputAmount);
 					break;   
 				case 9: stopLoop = true; break;
 				default: System.out.println("Wrong input");

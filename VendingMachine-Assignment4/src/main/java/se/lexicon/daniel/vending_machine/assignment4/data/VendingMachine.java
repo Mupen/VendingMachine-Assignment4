@@ -133,6 +133,13 @@ public class VendingMachine implements VendingMachineSignatures {
 		
 	}
 	
+	
+	/**
+	 * User Product
+	 * @param product = object
+	 * @param List<Product> = list of objects
+	 */
+	
 	@Override
 	public void addProduct(Product product) throws IllegalArgumentException {
 		if(product == null) {throw new IllegalArgumentException("Product Object is null");}
@@ -168,7 +175,7 @@ public class VendingMachine implements VendingMachineSignatures {
 				.filter(Product -> Product.getProductCode() == code)
 				.findFirst();
 	}
-
+	
 	@Override
 	public List<Product> findAllProducts() {
 		List<Product> objectList = new ArrayList<Product>();
@@ -181,6 +188,103 @@ public class VendingMachine implements VendingMachineSignatures {
 	}
 	
 	
+	
+	
+	
+	/**
+	 * Vending Machine Coins
+	 * @param type = Denomination
+	 * @param amount = number 
+	 */
+	
+	@Override
+	public int addVendingMachineCoinsTogether() {
+		int vendingMachineCoinsToValue = 0;
+		for(ObjectEnum denomination : vendingMachineCoinsStorage) {
+			vendingMachineCoinsToValue += (denomination.getDenomination().getValue() * denomination.getAmount());
+		}
+		return vendingMachineCoinsToValue;	
+	}
+	
+	@Override
+	public List<ObjectEnum> getVendingMachineCoins() {return this.vendingMachineCoinsStorage;}
+
+	@Override
+	public void addCoinsToVendingMachine(ObjectEnum type, int amount) throws IllegalArgumentException {
+		if(type == null) {throw new IllegalArgumentException("one of the coins is null");}
+		if(amount == 0) {System.out.println("Can't change value with a 0");}
+		else {
+			for(ObjectEnum coins : vendingMachineCoinsStorage)
+			{
+			   //Do something
+			   if(coins.getDenomination().equals(type.getDenomination())){coins.addAmount(amount);}
+			}
+		}
+		
+	}
+	
+	@Override
+	public void removeCoinsFromVendingMachine(ObjectEnum type, int amount) throws IllegalArgumentException {
+		if(type == null) {throw new IllegalArgumentException("one of the coins is null");}
+		if(amount == 0) {System.out.println("Can't change value with a 0");}
+		else {
+			for(ObjectEnum coins : vendingMachineCoinsStorage)
+			{
+			   //Do something
+			   if(coins.getDenomination().equals(type.getDenomination())){coins.subAmount(amount);}
+			}
+		}
+	}
+	
+	/**
+	 * Translational Balance Coins
+	 * @param product = object
+	 * @param List<Product> = list of objects
+	 */	
+	
+	@Override
+	public int addTransnationalBalanceTogether() {
+		int transnationalBalanceCoinsToValue = 0;
+		for(ObjectEnum denomination : transnationalBalanceStorage) {
+			transnationalBalanceCoinsToValue += (denomination.getDenomination().getValue() * denomination.getAmount());
+		}
+		return transnationalBalanceCoinsToValue;	
+	}
+	
+	@Override
+	public List<ObjectEnum> getTransnationalBalanceCoins() {return this.transnationalBalanceStorage;}
+	
+	
+	@Override
+	public void addCoinsToTransnationalBalance(ObjectEnum type, int amount) throws IllegalArgumentException {
+		if(type == null) {throw new IllegalArgumentException("one of the coins is null");}
+		if(amount == 0) {System.out.println("Can't change value with a 0");}
+		else {
+			for(ObjectEnum coins : transnationalBalanceStorage)
+			{
+			   //Do something
+			   if(coins.getDenomination().equals(type.getDenomination())){coins.addAmount(amount);}
+			}
+		}
+		
+	}
+	
+	@Override
+	public void removeCoinsFromTransnationalBalance(ObjectEnum type, int amount) throws IllegalArgumentException {
+		if(type == null) {throw new IllegalArgumentException("one of the coins is null");}
+		if(amount == 0) {System.out.println("Can't change value with a 0");}
+		else {
+			for(ObjectEnum coins : transnationalBalanceStorage)
+			{
+			   //Do something
+			   if(coins.getDenomination().equals(type.getDenomination())){coins.subAmount(amount);}
+			}
+		}
+		
+	}
+
+
+/*	
 	@Override
 	public List<ObjectEnum> findCoinByName(Denomination denomination){
 		return vendingMachineCoinsStorage.stream()
@@ -188,26 +292,13 @@ public class VendingMachine implements VendingMachineSignatures {
 				.collect(Collectors.toList());
 	}
 	
-	@Override
-	public List<ObjectEnum> getVendingMachineCoins() {return this.vendingMachineCoinsStorage;}
-	
-	@Override
-	public int addCoinsTogether() {
-		int coinsToValue = 0;
-		for(ObjectEnum denomination : vendingMachineCoinsStorage) {
-			coinsToValue += (denomination.getDenomination().getValue() * denomination.getAmount());
-		}
-		return coinsToValue;	
-	}
-	
-	
+
 	@Override
 	public void confirmPurchase(int cost) throws IllegalArgumentException {
 		if(cost == 0) {System.out.println("Can't change value with a 0");}
 		else {
 			for(ObjectEnum coins : vendingMachineCoinsStorage)
-			{
-				
+			{ 	
 				//Do something
 				if(coins.getDenomination().getValue() <= cost)	{
 					coins.subAmount(1); 
@@ -243,7 +334,14 @@ public class VendingMachine implements VendingMachineSignatures {
 		}
 	}
 	
+*/
 	
 	
-	// removeCoinsCollection this.vendingMachineCoinsStorage.removeIf(p -> {return coins.stream().anyMatch(x -> (p.getValue() == x.getValue()));});
+
+	
+
+
+
+
+
 }

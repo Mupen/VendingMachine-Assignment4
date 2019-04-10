@@ -8,7 +8,11 @@ import se.lexicon.daniel.vending_machine.assignment4.models.Product;
 
 public interface UserSignatures {
 
-	// Product
+	/**
+	 * User Product
+	 * @param product = object
+	 * @param List<Product> = list of objects
+	 */
 	public void addProduct(Product product) throws IllegalArgumentException;
 	public void useProduct(Product product) throws IllegalArgumentException;
 	public void examineProduct(Product product) throws IllegalArgumentException;
@@ -17,11 +21,15 @@ public interface UserSignatures {
 	public List<Product> findByNameLike(String name);
 	public List<Product> findAllProducts();
 	
-	// Coins
-	public List<ObjectEnum> getUserCoins();
+
+	/**
+	 * User Coins
+	 * @param product = object
+	 * @param List<Product> = list of objects
+	 */
 	public int addCoinsTogether();
+	public List<ObjectEnum> getUserCoins();
 	public void removeCoins(ObjectEnum type, int amount);
-	
 	public void addCoins(ObjectEnum type, int amount) throws IllegalArgumentException;
 	
 	

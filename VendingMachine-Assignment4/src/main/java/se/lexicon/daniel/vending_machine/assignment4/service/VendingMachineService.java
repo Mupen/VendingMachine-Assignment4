@@ -31,47 +31,75 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 		inBetweenCoinsStorage = new ArrayList<ObjectEnum>();
 	}
 	
-	@Override
-	public List<Product> examineUserInventory() {return userInstance.findAllProducts();}
-
-	@Override
-	public List<Product> examineVendingMachineInventory() {return vendingMachineInstance.findAllProducts();}
-
-	@Override
-	public String examineUserProduct(Product product) {return product.toString();}
-
-	@Override
-	public String examineVendingMachineProduct(Product product) {return product.toString();}
-	
-	@Override
-	public void userUseProduct(Product product) {this.userInstance.useProduct(product);}
-	
-	@Override
-	public int getUsersCoinsValue() {return userInstance.addCoinsTogether();}
-	
-	@Override
-	public int getVendingMachinensCoinsValue() {return vendingMachineInstance.addCoinsTogether();}	
-
-	@Override
-	public List<ObjectEnum> getAllVendingMachinenCoins() {return vendingMachineInstance.getVendingMachineCoins();}
+	/**
+	 * User Coins
+	 * @param type = Denomination
+	 * @param amount = number 
+	 */
 	
 	@Override
 	public List<ObjectEnum> getAllUsersCoins() {return userInstance.getUserCoins();}
 	
 	@Override
-	public List<ObjectEnum> getInBetweenCoinsStorageCoins() {return this.inBetweenCoinsStorage;}
+	public int getUsersCoinsValue() {return userInstance.addCoinsTogether();}
 	
 	@Override
 	public void addCoinsToUser(ObjectEnum type, int amount) {userInstance.addCoins(type, amount);}
 	
 	@Override
-	public void addCoinsToVendingMachinen(ObjectEnum type, int amount) {vendingMachineInstance.addCoins(type, amount);}
+	public void removeCoinsFromUser(ObjectEnum type, int amount) {userInstance.removeCoins(type, amount);}
+	
+	
+	/**
+	 * Vending Machine Coins
+	 * @param type = Denomination
+	 * @param amount = number 
+	 */
 	
 	@Override
-	public void removeCoinsFromUser(ObjectEnum type, int amount) {userInstance.removeCoins(type, amount);}
-
+	public List<ObjectEnum> getAllVendingMachinenCoins() {return vendingMachineInstance.getVendingMachineCoins();}
+	
 	@Override
-	public void removeCoinsFromVendingMachinen(ObjectEnum type, int amount) {vendingMachineInstance.removeCoins(type, amount);}
+	public int getVendingMachinensCoinsValue() {return vendingMachineInstance.addVendingMachineCoinsTogether();}
+	
+	@Override
+	public void addCoinsToVendingMachinen(ObjectEnum type, int amount) {vendingMachineInstance.addCoinsToVendingMachine(type, amount);}
+	
+	@Override
+	public void removeCoinsFromVendingMachinen(ObjectEnum type, int amount) {vendingMachineInstance.removeCoinsFromVendingMachine(type, amount);}
+	
+	
+	/**
+	 * Transnational Balance Coins
+	 * @param type = Denomination
+	 * @param amount = number 
+	 */
+	
+	
+	@Override
+	public List<ObjectEnum> getAllTransnationalBalanceCoins() {
+		return inBetweenCoinsStorage;}
+	
+	@Override
+	public int getTransnationalBalanceCoinsValue() {return vendingMachineInstance.addTransnationalBalanceTogether();}	
+	
+	@Override
+	public void addCoinsToTransnationalBalance(ObjectEnum type, int amount) {vendingMachineInstance.addCoinsToTransnationalBalance(type, amount);}
+	
+	@Override
+	public void removeCoinsFromTransnationalBalance(ObjectEnum type, int amount) {vendingMachineInstance.removeCoinsFromTransnationalBalance(type, amount);}
+	
+	/**
+	 * User Product
+	 * @param product = object
+	 * @param List<Product> = list of objects
+	 */
+	
+	@Override
+	public String examineUserProduct(Product product) {return product.toString();}
+	
+	@Override
+	public List<Product> examineUserInventory() {return userInstance.findAllProducts();}
 	
 	@Override
 	public Product userPurchaseProduct(int code) {
@@ -82,28 +110,19 @@ public class VendingMachineService implements VendingMachineServiceSignatures {
 	}
 	
 	@Override
-	public int getInBetweenCoinsStorageCoinsValue() {
-		int coinsToValue = 0;
-		for(ObjectEnum denomination : inBetweenCoinsStorage) {
-			coinsToValue += denomination.getDenomination().getValue();
-		}
-		return coinsToValue;	
-	}
+	public void userUseProduct(Product product) {this.userInstance.useProduct(product);}
 	
 	
-	public void returnCoinsFromVendingMachinen() {
-
-	}
-
+	/**
+	 * Vending Machine Product
+	 * @param product = object
+	 * @param List<Product> = list of objects
+	 */
+	
 	@Override
-	public void givenCoinsToVendingMachinen(ObjectEnum type, int amount) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public String examineVendingMachineProduct(Product product) {return product.toString();}
+	
 	@Override
-	public void addCoinToInBetweenStorage(ObjectEnum type, int amount) {
-		// TODO Auto-generated method stub
-		
-	}
+	public List<Product> examineVendingMachineInventory() {return vendingMachineInstance.findAllProducts();}
+
 }

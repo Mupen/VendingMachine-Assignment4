@@ -62,7 +62,11 @@ public class User implements UserSignatures {
 	}
 	
 	
-	
+	/**
+	 * User Product
+	 * @param product = object
+	 * @param List<Product> = list of objects
+	 */
 	
 	@Override
 	public void addProduct(Product product) throws IllegalArgumentException {
@@ -125,8 +129,13 @@ public class User implements UserSignatures {
 		return objectList;		
 	}
 	
-	@Override
-	public List<ObjectEnum> getUserCoins() {return this.userCoinsStorage;}
+	
+	
+	/**
+	 * User Coins
+	 * @param product = object
+	 * @param List<Product> = list of objects
+	 */
 	
 	@Override
 	public int addCoinsTogether() {
@@ -136,6 +145,9 @@ public class User implements UserSignatures {
 		}
 		return coinsToValue;	
 	}
+	
+	@Override
+	public List<ObjectEnum> getUserCoins() {return this.userCoinsStorage;}
 	
 	@Override
 	public void addCoins(ObjectEnum type, int amount) throws IllegalArgumentException {
